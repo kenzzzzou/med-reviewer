@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1266d4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Med Reviewer Hub — 2nd Year Medicine</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<style>
+  :root{
+    --blue:#1266d4;--blue-d:#0b4ea6;--blue-l:#eaf2fd;
+    --ink:#1d2733;--muted:#5c6779;--bg:#f1f5fb;--card:#fff;
+    --green:#158a43;--green-l:#e8f7ee;--red:#d2322d;--red-l:#fdeaea;
+    --amber:#b45309;--amber-l:#fdf1dd;--violet:#6d28d9;--violet-l:#f2ecfd;
+    --teal:#0d9488;--teal-l:#e5f5f3;--rose:#be123c;--rose-l:#fce8ee;
+    --border:#dfe6f0;--r:14px;
+    --shadow:0 1px 3px rgba(16,24,40,.08),0 8px 24px rgba(16,24,40,.06);
+    --topbar-bg:255,255,255;
+    --grey:#eef1f6;--grey-d:#dfe6f0;
+    --green-b:#bfe8cd;--red-b:#f2c4c2;--amber-b:#f3ddb4;--blue-b:#cfe0f8;
+    --violet-b:#e0d3fa;--teal-b:#bfe6e1;--rose-b:#f6cdd9;--flag-b:#fcd34d;
+  }
+  [data-theme="dark"]{
+    --bg:#0b0f19;
+    --card:#131c2e;
+    --ink:#f1f5f9;
+    --muted:#94a3b8;
+    --border:#232f48;
+    --blue-l:rgba(18,102,212,0.2);
+    --green-l:rgba(21,138,67,0.2);
+    --red-l:rgba(210,50,45,0.2);
+    --amber-l:rgba(180,83,9,0.2);
+    --violet-l:rgba(109,40,217,0.2);
+    --teal-l:rgba(13,148,136,0.2);
+    --rose-l:rgba(190,18,60,0.2);
+    --topbar-bg:19,28,46;
+    --grey:#0f1726;--grey-d:#232f48;
+    --blue-d:#7db4f5;--green:#4ade80;--red:#f87171;--amber:#fbbf24;--violet:#a78bfa;--teal:#2dd4bf;--rose:#fb7185;
+    --green-b:rgba(74,222,128,.35);--red-b:rgba(248,113,113,.35);--amber-b:rgba(251,191,36,.35);
+    --blue-b:rgba(125,180,245,.35);--violet-b:rgba(167,139,250,.35);--teal-b:rgba(45,212,191,.35);
+    --rose-b:rgba(251,113,133,.35);--flag-b:#fcd34d;
+    --shadow:0 1px 3px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  body{font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .wrap{max-width:940px;margin:0 auto;padding:18px 16px 60px}
+
+  /* topbar (exam mode) */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(var(--topbar-bg),.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(16,24,40,.08)}
+  .topbar.elim-active{box-shadow:inset 0 0 0 2px var(--amber),0 1px 8px rgba(16,24,40,.08)}
+  .elim-pill{display:none;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#7a4e00;background:#ffe9b3;border:1px solid #f0c75e;border-radius:999px;padding:2px 8px;margin-left:8px}
+  [data-theme="dark"] .elim-pill{color:#ffd97a;background:rgba(240,199,94,.12);border-color:rgba(240,199,94,.35)}
+  .topbar.elim-active .elim-pill{display:inline-flex}
+  .tbwrap{max-width:940px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;gap:10px}
+  .tbleft{display:flex;align-items:center;gap:10px;font-size:15px}
+  .tbleft a{font-size:17px;text-decoration:none}
+  .tbright{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+  .timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--blue-d);background:var(--blue-l);padding:3px 10px;border-radius:999px}
+  .pbar{height:4px;background:var(--grey-d)}
+  #pfill{height:100%;width:0;background:linear-gradient(90deg,#1266d4,#22b07d);transition:width .3s}
+
+  /* hero + home */
+  .sitehero{background:linear-gradient(135deg,#0b4ea6,#1266d4 55%,#1c86e0);color:#fff;border-radius:20px;padding:32px 28px;box-shadow:var(--shadow)}
+  .hero-links{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn.hero-cta{background:#fff;color:var(--blue-d);box-shadow:0 4px 14px rgba(0,0,0,.16);font-weight:700;padding:10px 18px;border-radius:12px;transition:.15s ease}
+  .btn.hero-cta:hover{background:#f1f5fb;color:var(--blue);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  [data-theme="dark"] .btn.hero-cta{background:rgba(255,255,255,.95);color:#0b4ea6}
+  .sitehero h1{font-size:28px}
+  .sitehero p{opacity:.92;font-size:14.5px;margin-top:4px}
+  .hstats{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+  .hstat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 16px;text-align:center;min-width:86px}
+  .hstat b{display:block;font-size:20px}
+  .hstat span{font-size:11.5px;opacity:.9}
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px;margin-top:14px}
+  .scard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:.18s;display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:inherit}
+  .scard:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(16,24,40,.13);border-color:var(--blue)}
+  .sicon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:23px;flex:0 0 46px;color:#fff}
+  .scard b{font-size:15.5px;display:block}
+  .scard .sd{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .smeta{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+  .resumebox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);margin:18px 0 14px}
+  .resumeitem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .resumeitem:last-child{border-bottom:0}
+
+  /* subject page */
+  .crumbs{display:flex;align-items:center;gap:8px;margin:4px 0 14px;font-size:13.5px;color:var(--muted)}
+  .crumbs a{color:var(--blue-d);text-decoration:none;font-weight:600}
+  .crumbs a:hover{text-decoration:underline}
+  .subjhead{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+  .subjhead .sicon{width:56px;height:56px;font-size:28px;border-radius:16px}
+  .subjhead h2{font-size:21px}
+  .subjhead .sd{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .ecards{display:grid;gap:14px;margin-top:14px}
+  .ecard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .einfo{flex:1;min-width:250px}
+  .etitle{font-size:16.5px;font-weight:700}
+  .edesc{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5}
+  .echips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .ebtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .best{background:var(--green-l);color:var(--green);border:1px solid var(--green-b);padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+  .emptybox{text-align:center;background:var(--card);border:1px dashed var(--border);border-radius:16px;padding:38px 20px;color:var(--muted);margin-top:16px}
+  .emptybox .big{font-size:40px;margin-bottom:8px}
+  .howto{margin-top:22px}
+  .howto pre{background:#0f172a;color:#dbe7ff;padding:14px;border-radius:12px;font-size:12.5px;overflow:auto;line-height:1.65;margin-top:10px}
+
+  /* generic */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+  .card h3{font-size:15px;margin-bottom:10px}
+  .ul{margin:6px 0 0 18px;font-size:14px;color:var(--ink)}
+  .ul li{margin-bottom:5px}
+  .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:26px}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:700;border:1px solid transparent}
+  .chip.lot{background:var(--green-l);color:var(--green);border-color:var(--green-b)}
+  .chip.hot{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+  .chip.wrongc{background:var(--red-l);color:var(--red);border-color:var(--red-b)}
+  .chip.skipc{background:var(--grey);color:var(--muted);border-color:var(--border)}
+  .chip.flag{background:var(--amber-l);color:var(--amber);border-color:var(--flag-b)}
+  .chip.sec-blue{background:var(--blue-l);color:var(--blue-d);border-color:var(--blue-b)}
+  .chip.sec-violet{background:var(--violet-l);color:var(--violet);border-color:var(--violet-b)}
+  .chip.sec-teal{background:var(--teal-l);color:var(--teal);border-color:var(--teal-b)}
+  .chip.sec-amber{background:var(--amber-l);color:var(--amber);border-color:var(--amber-b)}
+  .chip.sec-rose{background:var(--rose-l);color:var(--rose);border-color:var(--rose-b)}
+
+  /* quiz */
+  .qhead{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .qnum{font-weight:800;font-size:18px;color:var(--blue-d)}
+  .qnum .of{font-size:13px;color:var(--muted);font-weight:600}
+  .qcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-top:14px;animation:pop .25s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .qtext{font-size:17.5px;font-weight:600;margin:12px 0 16px;line-height:1.5}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:13px 15px;border:2px solid var(--border);border-radius:12px;background:var(--card);cursor:pointer;font-size:15.5px;font-family:inherit;color:var(--ink);transition:.15s;line-height:1.45}
+  .opt:hover{border-color:var(--blue);background:var(--blue-l)}
+  .opt.selected{border-color:var(--blue);background:var(--blue-l);box-shadow:inset 0 0 0 1px var(--blue)}
+  .opt.correct{border-color:var(--green);background:var(--green-l)}
+  .opt.wrong{border-color:var(--red);background:var(--red-l)}
+  .ol{flex:0 0 26px;height:26px;border-radius:8px;background:var(--grey);display:grid;place-items:center;font-weight:700;font-size:13px}
+  .opt.selected .ol{background:var(--blue);color:#fff}
+  .opt.correct .ol{background:var(--green);color:#fff}
+  .opt.wrong .ol{background:var(--red);color:#fff}
+  .ot{flex:1}
+  .om{margin-left:auto;font-weight:800;color:var(--green);font-size:16px}
+  .omx{color:var(--red)}
+  .qnav{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .qnav .btn{flex:1;min-width:130px}
+  .kbd{color:var(--muted);font-size:12.5px;text-align:center;margin-top:14px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;appearance:none;border:0;background:var(--blue);color:#fff;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;cursor:pointer;transition:.15s;box-shadow:0 4px 12px rgba(18,102,212,.25);font-family:inherit;text-decoration:none}
+  a.btn{text-decoration:none}
+  .btn:hover{background:var(--blue-d)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .btn.ghost{background:var(--card);color:var(--blue-d);border:1.5px solid var(--border);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--blue);background:var(--blue-l)}
+  .btn.warn{background:#d97706;box-shadow:0 4px 12px rgba(217,119,6,.3)}
+  .btn.warn:hover{background:#b45309}
+  .btn.danger{background:var(--red)}
+  .btn.danger:hover{background:#a92b27}
+  .mini{font-size:11.5px;color:var(--muted)}
+
+  /* session launch settings + flag button */
+  .settings-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);width:100%}
+  .slab{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-right:2px}
+  .seg{display:inline-flex;border:1.5px solid var(--border);border-radius:999px;overflow:hidden;background:var(--card)}
+  .seg-b{border:0;background:transparent;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--muted);font-family:inherit;display:inline-flex;align-items:center;gap:4px;transition:.15s}
+  .seg-b.on{background:var(--blue);color:#fff}
+  .sw{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;user-select:none}
+  .sw input{accent-color:var(--blue);width:15px;height:15px;cursor:pointer}
+  .btn-flag{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);font-family:inherit;transition:.15s;white-space:nowrap}
+  .btn-flag:hover{border-color:var(--amber);color:var(--amber)}
+  .btn-flag.on{background:var(--amber-l);color:var(--amber);border-color:var(--flag-b)}
+
+  /* modals */
+  .overlay{position:fixed;inset:0;background:rgba(9,17,31,.55);display:grid;place-items:center;z-index:100;padding:16px}
+  .modal{background:var(--card);border-radius:18px;max-width:640px;width:100%;max-height:82vh;overflow:auto;padding:20px;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+  .mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .mhead h3{font-size:16px}
+  .mclose{background:var(--grey);color:var(--ink);border:0;border-radius:10px;width:32px;height:32px;font-size:15px;cursor:pointer}
+  .navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px}
+  .navb{height:38px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);font-weight:700;font-size:13px;cursor:pointer;color:var(--muted);font-family:inherit;position:relative}
+  .navb.ans{background:var(--green-l);border-color:var(--green-b);color:var(--green)}
+  .navb.cur{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue);color:var(--blue-d)}
+  .navb.flagged::after{content:"";position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--amber)}
+  .navb.cur.flagged{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+  .navb.cur.flagged::after{background:var(--amber)}
+  .navlegend{display:flex;gap:14px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .lg{display:inline-block;width:12px;height:12px;border-radius:4px;border:1.5px solid var(--border);background:var(--card);vertical-align:-2px;margin-right:4px}
+  .lg-ans{background:var(--green-l);border-color:var(--green-b)}
+  .lg-cur{outline:2px solid var(--blue)}
+  .lg-flag{background:var(--amber-l);border-color:var(--flag-b)}
+
+  /* results */
+  .rescard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:var(--shadow);text-align:center;margin-top:16px}
+  .ringwrap{display:flex;justify-content:center}
+  .rescard h2{font-size:22px;margin-top:10px}
+  .rescard .msg{color:var(--muted);font-size:14.5px;margin-top:6px}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:10px;margin:18px 0}
+  .stat{border:1px solid var(--border);border-radius:12px;padding:12px}
+  .stat b{display:block;font-size:22px}
+  .stat span{font-size:12px;color:var(--muted)}
+  .stat.ok b{color:var(--green)}.stat.bad b{color:var(--red)}.stat.skip b{color:var(--amber)}
+  .bars{text-align:left;margin:8px 0 4px}
+  .bars h3{font-size:14px;margin:14px 0 8px}
+  .brow{display:grid;grid-template-columns:minmax(120px,220px) 1fr 60px;gap:10px;align-items:center;margin-bottom:8px;font-size:13px}
+  .btrack{height:12px;background:var(--grey);border-radius:999px;overflow:hidden}
+  .bfill{height:100%;background:linear-gradient(90deg,#1266d4,#22b07d);border-radius:999px;transition:width .8s}
+  .bfill.hot{background:linear-gradient(90deg,#d97706,#f59e0b)}
+  .bval{font-weight:700;color:var(--muted);text-align:right}
+  .resbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .bestline{font-size:13px;color:var(--muted);margin-top:8px}
+
+  /* review */
+  .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:24px 0 12px}
+  .ftitle{font-weight:700;font-size:14px}
+  .fbtn{border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);font-family:inherit}
+  .fbtn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+  .qcard.rev{margin-bottom:14px}
+  .rev .qtext{font-size:16px}
+  .explain{background:var(--blue-l);border-left:4px solid var(--blue);padding:12px 14px;border-radius:0 12px 12px 0;font-size:14px;color:var(--ink);margin-top:14px}
+  .empty{text-align:center;color:var(--muted);padding:30px;font-size:15px}
+
+  /* theme toggle + search + elimination */
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .theme-btn{background:var(--card);border:1.5px solid var(--border);color:var(--muted);border-radius:999px;width:38px;height:38px;font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.15s;font-family:inherit;flex:0 0 auto}
+  .theme-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .theme-btn.hero-theme{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);color:#fff}
+  .theme-btn.hero-theme:hover{background:rgba(255,255,255,.28);border-color:#fff;color:#fff}
+  .search-area{margin-top:16px}
+  .search-input{width:100%;padding:12px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);color:var(--ink);font-size:16px;box-shadow:var(--shadow);font-family:inherit;transition:.15s}
+  .search-input::placeholder{color:var(--muted);opacity:.85}
+  .search-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l)}
+  .search-area .sgrid,.search-area .ecards{margin-top:12px}
+  .sect-h{margin-top:20px;font-size:16px}
+  .search-empty{margin-top:14px}
+  .opt.eliminated{opacity:.45;text-decoration:line-through;filter:grayscale(80%);background:rgba(0,0,0,.03)}
+  [data-theme="dark"] .opt.eliminated{background:rgba(255,255,255,.03)}
+  .opt-strike-btn{margin-left:auto;align-self:center;background:transparent;border:1px solid var(--border);border-radius:6px;width:24px;height:24px;display:grid;place-items:center;cursor:pointer;color:var(--muted);font-size:11px;opacity:.7;transition:.15s;user-select:none;flex:0 0 auto}
+   .opt-strike-btn:hover{opacity:1;border-color:var(--red);color:var(--red)}
+   .opt-strike-btn.active{background:var(--red);border-color:var(--red);color:#fff;opacity:1}
+
+  /* explanation artwork & tables (feature: images, diagrams, Markdown tables in rationalizations) */
+  .explain-img-wrap{margin:10px 0 2px}
+  .explain-img{max-width:100%;max-height:360px;border-radius:12px;border:1px solid var(--border);display:block;margin:0 auto;object-fit:contain;cursor:zoom-in;background:#fff}
+  [data-theme="dark"] .explain-img{background:#0d1422}
+  .explain table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  .explain th,.explain td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top}
+  .explain thead th{background:var(--grey);font-weight:700}
+  [data-theme="dark"] .explain thead th{background:var(--grey-d)}
+
+  /* inline subject card mastery */
+  .s-mastery{margin-top:10px;width:100%}
+   .s-mtrack{height:6px;background:var(--grey-d);border-radius:999px;overflow:hidden;margin-bottom:4px}
+  .s-mfill{height:100%;border-radius:999px;transition:width .4s}
+  .s-mval{font-size:11.5px;font-weight:700;color:var(--muted);display:block}
+
+  /* search auto-hide: a .search-sec (heading + its card grid) hides when it has no visible matches */
+  .search-sec{margin-top:16px}
+  .search-sec > h3.sect-h{margin:0 0 10px}
+  .search-sec > .sgrid{margin-top:0}
+  .search-sec > .ecards{margin-top:0}
+  .search-sec > .catpane{margin-top:0}
+
+  /* custom exam block launcher + overlay (feature) */
+  .winlink{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1.5px solid var(--border);color:var(--blue-d);border-radius:12px;padding:11px 15px;font-size:13.5px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+  .winlink:hover{border-color:var(--blue);background:var(--blue-l)}
+  .bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:14px 0 4px}
+  .bpc{border:1.5px solid var(--border);border-radius:12px;padding:9px 12px;background:var(--card);display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-family:inherit;color:var(--ink);transition:.15s}
+  .bpc:hover{border-color:var(--blue)}
+  .bpc.on{border-color:var(--blue);background:var(--blue-l)}
+  .bpc input{margin:0}
+  .qtygrid{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .qty-b{border:1.5px solid var(--border);background:var(--card);color:var(--muted);border-radius:10px;padding:8px 0;flex:1;min-width:52px;font-weight:700;font-size:13.5px;cursor:pointer;font-family:inherit}
+  .qty-b.on{background:var(--blue);border-color:var(--blue);color:#fff}
+  .ctier-b{background:var(--card);cursor:pointer}
+
+  /* accessibility */
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+  .opt:focus-visible,.btn:focus-visible{outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+  /* progress page, question search, sparkline */
+  .spark{color:var(--blue);vertical-align:middle}
+  .trendline{margin-top:10px;font-size:13px;color:var(--muted)}
+  .weaknote{margin-top:8px;font-size:13px;color:var(--amber);font-weight:600}
+  .ptable-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card);margin-top:10px}
+  .ptable{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+  .ptable th,.ptable td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+  .ptable th{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  .ptable tr:last-child td{border-bottom:0}
+  .pstats{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+  .pstat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 18px;min-width:120px}
+  .pstat b{display:block;font-size:22px}.pstat span{font-size:12px;color:var(--muted)}
+  .qsearch{margin-top:18px}
+  .qs-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-top:8px}
+  .qs-item summary{cursor:pointer;font-weight:600;font-size:14.5px;line-height:1.45}
+  .qs-item summary .chip{margin-right:6px;vertical-align:middle}
+  .qs-body{margin-top:10px;font-size:14px}
+  .qs-opt{padding:5px 0}.qs-opt.ok{color:var(--green);font-weight:700}
+  .muted{color:var(--muted)}
+
+  @media(max-width:600px){
+    .qtext{font-size:16px}
+    .brow{grid-template-columns:1fr 56px}
+    .brow .blabel{grid-column:1/-1}
+    .sitehero h1{font-size:22px}
+    .subjhead{flex-direction:column;align-items:flex-start}
+    .qnav{position:sticky;bottom:0;z-index:5;background:linear-gradient(to bottom,transparent,var(--bg) 28%);padding:14px 0 8px;margin-bottom:-6px}
+    .qnav .btn{min-width:0;padding:12px 8px;font-size:14px}
+    .kbd{display:none}
+  }
+</style>
+<script>
+try{
+  var t=localStorage.getItem("medrev-theme");
+  if(t!=="dark"&&t!=="light")t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";
+  document.documentElement.setAttribute("data-theme",t||"light");
+}catch(e){document.documentElement.setAttribute("data-theme","light");}
+</script>
+
+<!-- QUESTION BANK DATA (modular): load before the app inline script. Bump ?v= after editing a data file so browsers fetch the new answer keys. -->
+<script src="data/ane.js?v=20261031b"></script>
+<script src="data/patho.js?v=20261031b"></script>
+<script src="data/surg.js?v=20261031b"></script>
+<script src="data/pharma.js?v=20261031b"></script>
+</head>
+<body>
+
+<header class="topbar" id="topbar" hidden>
+  <div class="tbwrap">
+    <div class="tbleft"><a href="#/" title="Home">🏠</a><b id="tbTitle">Exam</b></div>
+    <div class="tbright"><span class="elim-pill" id="elimModePill" hidden>✏️ Elim-mode</span><button class="theme-btn" id="themeBtn" title="Toggle light/dark mode"></button><span class="timer" id="timer">0:00</span><span id="answeredTxt">Answered 0/0</span></div>
+  </div>
+  <div class="pbar"><div id="pfill"></div></div>
+</header>
+
+<div class="wrap" id="app" role="main"></div>
+
+<div class="overlay" id="navOverlay" hidden>
+  <div class="modal">
+    <div class="mhead"><h3>🧭 Question Navigator</h3><button class="mclose" id="navClose">✕</button></div>
+    <div class="nav-filters" id="navFilters" style="display:none;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+      <button class="fbtn on" data-nf="all">All</button>
+      <button class="fbtn" data-nf="flagged">🚩 Flagged</button>
+      <button class="fbtn" data-nf="unanswered">⚪ Unanswered</button>
+    </div>
+    <div class="navgrid" id="navGrid"></div>
+    <div class="navlegend"><span><i class="lg lg-ans"></i>Answered</span><span><i class="lg"></i>Unanswered</span><span><i class="lg lg-cur"></i>Current</span><span><i class="lg lg-flag"></i>Flagged</span></div>
+  </div>
+</div>
+
+<div class="overlay" id="confirmOverlay" hidden>
+  <div class="modal" style="max-width:430px">
+    <h3 style="font-size:17px;margin-bottom:8px">View summary?</h3>
+    <p style="color:var(--muted);font-size:14px">You still have <b id="unCount">0</b> unanswered item(s). Unanswered items will be marked incorrect.</p>
+    <div style="display:flex;gap:10px;margin-top:18px;justify-content:flex-end;flex-wrap:wrap">
+      <button class="btn ghost" id="confirmCancel">Keep answering</button>
+      <button class="btn danger" id="confirmYes">View summary anyway</button>
+    </div>
+  </div>
+</div>
+
+<!-- feature 2 · reset progress overlay -->
+<div class="overlay" id="imgLightbox" hidden style="z-index:200;cursor:zoom-out">
+  <img id="lightboxImg" style="max-width:92vw;max-height:90vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);object-fit:contain">
+</div>
+<div class="overlay" id="resetOverlay" hidden>
+  <div class="modal" style="max-width:430px">
+    <div class="mhead"><h3>🗑 Reset ALL progress?</h3><button class="mclose" id="resetCloseBtn">✕</button></div>
+    <p style="color:var(--muted);font-size:14px">This erases every <b>best score</b>, all <b>in-progress</b> attempts, flags, eliminations, and resume bookmarks from this browser. Your theme preference and the questions themselves stay untouched.</p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap">
+      <button class="btn ghost" id="resetCancelBtn">Cancel</button>
+      <button class="btn danger" id="resetYesBtn">🗑 Yes, reset everything</button>
+    </div>
+  </div>
+</div>
+
+<!-- backup import: merge or replace -->
+<div class="overlay" id="importOverlay" hidden>
+  <div class="modal" style="max-width:470px">
+    <div class="mhead"><h3>📥 Import backup</h3><button class="mclose" id="importCloseBtn" aria-label="Close">✕</button></div>
+    <p style="color:var(--muted);font-size:14px" id="importSummary"></p>
+    <p style="font-size:13.5px;margin-top:10px"><b>Merge</b> keeps the higher best score for each exam, keeps whatever is in progress on this device, and adds history and weak spots from the file. <b>Replace</b> makes this browser match the file.</p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap">
+      <button class="btn ghost" id="importCancelBtn">Cancel</button>
+      <button class="btn danger" id="importReplaceBtn">Replace</button>
+      <button class="btn" id="importMergeBtn">Merge (recommended)</button>
+    </div>
+  </div>
+</div>
+
+<!-- feature 4 · custom multi-subject review block builder -->
+<div class="overlay" id="customBlockOverlay" hidden>
+  <div class="modal" style="max-width:560px">
+    <div class="mhead"><h3>🎯 Build a Custom Review Block</h3><button class="mclose" id="customBlockClose">✕</button></div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:10px">Mix questions from <b>one or more subjects</b> into a single fresh review session. Choose your mix and size, then hit <b>Launch</b> — it starts immediately as a brand-new exam (ID <code>custom-block</code>) that never overwrites the registered subjects' best scores.</p>
+    <div class="settings-row">
+      <span class="slab">📚 Subjects</span>
+      <label class="sw"><input type="checkbox" id="customAllSubj" checked> All</label>
+      <span id="customSelCount" style="margin-left:auto;font-size:11px;color:var(--muted)"></span>
+    </div>
+    <div id="customSubjList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:8px 0 14px"></div>
+    <div class="settings-row" style="margin-bottom:10px">
+      <span class="slab">🔢 Size</span>
+      <div class="seg" id="customSizeSeg">
+        <button class="seg-b on" data-n="25">25</button>
+        <button class="seg-b" data-n="50">50</button>
+        <button class="seg-b" data-n="75">75</button>
+        <button class="seg-b" data-n="100">100</button>
+      </div>
+      <span class="slab">🧠 Question type</span>
+      <div class="seg" id="customTierSeg">
+        <button class="seg-b on" data-t="all">All</button>
+        <button class="seg-b" data-t="LOTS">LOTS</button>
+        <button class="seg-b" data-t="HOTS">HOTS</button>
+      </div>
+    </div>
+    <div class="settings-row" style="margin-bottom:10px">
+      <span class="slab">🛠 Mode</span>
+      <div class="seg" id="customModeSeg">
+        <button class="seg-b on" data-m="tutor">📖 Tutor</button>
+        <button class="seg-b" data-m="exam">📝 Exam</button>
+      </div>
+      <label class="sw"><input type="checkbox" id="customShufQ" checked> 🔀 Shuffle questions</label>
+      <label class="sw"><input type="checkbox" id="customShufO"> 🔀 Shuffle choices</label>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;flex-wrap:wrap">
+      <button class="btn ghost" id="customBlockCancel">Cancel</button>
+      <button class="btn" id="customBlockLaunch">🚀 Launch Block</button>
+    </div>
+  </div>
+</div>
+
+<script><!-- DATA MODULARIZED -->
+
+/* ================================================================
+   1) SUBJECT REGISTRY — edit freely (name, icon, color, desc)
+================================================================ */
+const SUBJECTS={
+  med1:  {name:"Medicine 1",            icon:"🫀", color:"#d43a5e", desc:"Cardiovascular, pulmonary, GI, renal & hematology cores"},
+  pharma:{name:"Pharmacology",          icon:"💊", color:"#7c3aed", desc:"Drug classes, mechanisms, adverse effects & clinical uses"},
+  surg:  {name:"Surgery",               icon:"🔪", color:"#0d9488", desc:"Principles of surgery, wound healing & perioperative care"},
+  patho: {name:"Pathology",             icon:"🔬", color:"#b45309", desc:"Cell injury, inflammation, neoplasia & organ pathology"},
+  ane:   {name:"Anesthesiology",        icon:"😴", color:"#1266d4", desc:"Preoperative evaluation · GA & IV anesthetics · Inhaled anesthetics"},
+  epi:   {name:"Clinical Epidemiology", icon:"📊", color:"#0369a1", desc:"Biostatistics, study designs & diagnostic test appraisal"},
+  ethics:{name:"Ethics",                icon:"⚖️", color:"#4d7c0f", desc:"Bioethical principles, informed consent & medico-legal issues"},
+  micro: {name:"Microbiology",          icon:"🦠", color:"#be123c", desc:"Bacteriology, virology, mycology & antimicrobials"},
+  para:  {name:"Parasitology",          icon:"🪱", color:"#7e22ce", desc:"Protozoa, helminths & arthropods of medical importance"}
+};
+
+/* ================================================================
+   2) QUESTION FORMAT (compact, easy to author):
+      ["L"|"H", "Question", ["Opt A","Opt B",...], correctIndex, "Explanation"]
+      L = LOTS (recall) · H = HOTS (application/analysis)
+================================================================ */
+/* array row: [tier, question, [choices], answerIndex, rationalization, imgHTML(optional 6th)] */
+/* ---------- question-bank safety net ---------- */
+const BANK_ISSUES=[], MISSING_BANKS=[];
+let _storageWarned=false;
+function storageWarn(){ /* never fail silently when localStorage is full/blocked */
+  if(_storageWarned)return;_storageWarned=true;
+  try{showToast("⚠️ Couldn't save to browser storage (full or blocked) — export a backup from the Guide page.");}catch(e){}
+}
+/* look a bank up by its global name; a missing/misnamed data file now yields an empty exam + a warning instead of a blank app */
+const rawBank=name=>{
+  try{const v=(0,eval)(name);if(Array.isArray(v))return v;}catch(e){}
+  MISSING_BANKS.push(name);console.error("Question data missing: "+name+" — check the data/*.js file names and paths.");return [];
+};
+const toQ=r=>{
+  const tier=String((r&&r[0])||"").trim().toUpperCase();
+  if(tier[0]!=="L"&&tier[0]!=="H")BANK_ISSUES.push('unknown tier "'+(r&&r[0])+'" (treated as HOTS): '+String((r&&r[1])||"").slice(0,70));
+  return {t:tier[0]==="L"?"LOTS":"HOTS",q:r&&r[1],o:r&&r[2],a:r&&r[3],e:r&&r[4],img:(r&&r[5])||""};
+};
+function validateBank(){ /* logs problems; only structurally broken items (that would crash rendering) are removed */
+  for(const [id,e] of Object.entries(EXAMS)){
+    e.data=e.data.filter((q,i)=>{
+      const at=id+" #"+(i+1);
+      if(!q||typeof q.q!=="string"||!q.q.trim()||!Array.isArray(q.o)||q.o.length<2){BANK_ISSUES.push(at+": malformed item — removed");return false;}
+      if(!Number.isInteger(q.a)||q.a<0||q.a>=q.o.length)BANK_ISSUES.push(at+": answer index "+q.a+" is out of range (0–"+(q.o.length-1)+")");
+      if(new Set(q.o.map(o=>String(o).trim().toLowerCase())).size!==q.o.length)BANK_ISSUES.push(at+": duplicate answer choices");
+      if(!q.e||!String(q.e).trim())BANK_ISSUES.push(at+": missing rationalization");
+      return true;
+    });
+  }
+  if(BANK_ISSUES.length)console.warn("Question bank: "+BANK_ISSUES.length+" issue(s)\n"+BANK_ISSUES.join("\n"));
+}
+function dataWarnHTML(){
+  const parts=[];
+  if(MISSING_BANKS.length)parts.push(`<b>Missing question data:</b> ${MISSING_BANKS.map(esc).join(", ")} — check the <code>data/</code> file names and paths.`);
+  if(BANK_ISSUES.length)parts.push(`<b>${BANK_ISSUES.length} question-bank issue${BANK_ISSUES.length>1?"s":""}</b> found — press F12 → Console for the list.`);
+  return parts.length?`<div class="resumebox" style="border-color:var(--amber-b);background:var(--amber-l);margin:18px 0 0;font-size:13.5px">⚠️ ${parts.join("<br>")}</div>`:"";
+}
+function imgHTML(q){/* renders an optional diagram/table/illustration inside a rationalization (feature 5) */
+  if(!q||!q.img)return "";
+  const isUrl=/^(https?:\/\/|data:image\/|[\w\.\/-]+\.(png|jpe?g|svg|webp|gif))/i.test(q.img.trim());
+  const content=isUrl
+    ?`<img src="${q.img}" class="explain-img" alt="Reference Diagram" loading="lazy" onclick="openLightbox(this.src)">`
+    :`<div class="explain-img">${q.img}</div>`;
+  return `<div class="explain-img-wrap">${content}<div class="explain-img-cap">🖼 Click diagram to open/enlarge</div></div>`;
+}
+function openLightbox(src){
+  const lb=document.getElementById("imgLightbox"),img=document.getElementById("lightboxImg");
+  if(!lb||!img)return;
+  img.src=src;lb.hidden=false;
+}
+document.getElementById("imgLightbox")?.addEventListener("click",function(){this.hidden=true;});
+
+/* ================================================================
+   3) EXAM REGISTRY — add new exams here (one entry per exam)
+================================================================ */
+
+const EXAMS={
+  "ane-preop":{subject:"ane",icon:"📋",cls:"sec-blue",title:"Preoperative Evaluation & Preparation",short:"Preop Evaluation",
+    desc:"Purpose of preop evaluation · focused history & METs · airway assessment & Mallampati · ASA classification · fasting & preop medications",
+    tags:["preoperative","preop","anesthesia","ASA","Mallampati","METs","airway","fasting","evaluation","clearance"],
+    data:rawBank("PREOP_RAW").map(toQ)},
+  "ane-ga":{subject:"ane",icon:"💉",cls:"sec-violet",title:"General Anesthesia & IV Anesthetics",short:"GA & IV Anesthetics",
+    desc:"Continuum of sedation · EEG/BIS monitoring · thiopental, propofol, etomidate, benzodiazepines, ketamine · alpha-2 agonists",
+    tags:["general anesthesia","IV","propofol","thiopental","etomidate","ketamine","benzodiazepines","BIS","sedation"],
+    data:rawBank("GAV_RAW").map(toQ)},
+  "ane-inh":{subject:"ane",icon:"🌬️",cls:"sec-teal",title:"Pharmacology of Inhaled Anesthetics",short:"Inhaled Anesthetics",
+    desc:"Uptake & distribution · FA/FI & equilibration · MAC, MAC-awake, MAC-BAR · blood:gas vs oil:gas coefficients · organ effects & MH",
+    tags:["inhaled","volatile","MAC","sevoflurane","isoflurane","desflurane","nitrous oxide","malignant hyperthermia","uptake"],
+    data:rawBank("INH_RAW").map(toQ)},
+  "patho-inflam":{subject:"patho",icon:"🩹",cls:"sec-rose",title:"Inflammation & Repair",short:"Inflammation & Repair",
+    desc:"Acute & chronic inflammation · vascular & cellular events · leukocyte recruitment · chemical mediators · morphologic patterns · repair, healing & fibrosis",
+    tags:["inflammation","acute","chronic","leukocytes","mediators","repair","healing","fibrosis","granuloma","exudate"],
+    data:rawBank("INFLAM_RAW").map(toQ)},
+  "patho-immune":{subject:"patho",icon:"🧬",cls:"sec-teal",title:"Diseases of the Immune System",short:"Immune System Diseases",
+    desc:"Hypersensitivity reactions (I–IV) · autoimmunity & tolerance · SLE, systemic sclerosis, Sjögren, RA · primary immunodeficiencies & complement · HIV/AIDS opportunistic infections",
+    tags:["immune","hypersensitivity","autoimmune","SLE","lupus","Sjogren","immunodeficiency","HIV","AIDS","complement","antibody"],
+    data:rawBank("IMMUNE_RAW").map(toQ)},
+  "surg-wound":{subject:"surg",category:"surg-2028",icon:"🩹",cls:"sec-teal",title:"Wound Healing",short:"Wound Healing",
+    desc:"Phases of wound healing, biology of repair, complications, and management",
+    tags:["wound healing","phases","fibroblast","collagen","contraction","dehiscence","closure","inflammation","granulation"],
+    data:rawBank("WOUND_RAW").map(toQ)},
+  "surg-infections":{subject:"surg",category:"surg-2028",icon:"🧫",cls:"sec-rose",title:"Surgical Infections",short:"Surgical Infections",
+    desc:"Surgical site infections, microbiology, prevention, prophylaxis, and antimicrobial therapy",
+    tags:["surgical site infection","SSI","abscess","prophylaxis","antibiotics","peritonitis","crepitus","necrotizing","clean","dirty"],
+    data:rawBank("SURG_INF_RAW").map(toQ)},
+  "pharma-antiseizures":{subject:"pharma",category:"pharma-anticonvulsants",icon:"⚡",cls:"sec-violet",title:"Antiseizure Drugs",short:"Antiseizures",
+    desc:"T-type calcium blockers, sodium channel inhibitors, GABA modulators, teratogenicity, status epilepticus, and adverse profiles",
+    tags:["pharmacology","pharma","anticonvulsants","antiseizures","epilepsy","seizure","ethosuximide","valproate","phenytoin","carbamazepine","levetiracetam","lamotrigine","status epilepticus","topiramate"],
+    data:rawBank("ANTISEIZURE_RAW").map(toQ)},
+  "pharma-parkinson":{subject:"pharma",category:"pharma-anticonvulsants",icon:"🤝",cls:"sec-amber",title:"Anti-Parkinson Drugs",short:"Anti-Parkinson",
+    desc:"Levodopa/carbidopa, dopamine receptor agonists, COMT inhibitors, MAO-B inhibitors, and anticholinergics",
+    tags:["pharmacology","parkinson","levodopa","carbidopa","amantadine","pramipexole","entacapone","selegiline","tolcapone","bromocriptine","benztropine"],
+    data:rawBank("PARKINSON_RAW").map(toQ)},
+  "pharma-dementia":{subject:"pharma",category:"pharma-anticonvulsants",icon:"🧩",cls:"sec-teal",title:"Drugs for Dementia",short:"Dementia Drugs",
+    desc:"Cholinesterase inhibitors (donepezil, rivastigmine, galantamine) and NMDA receptor antagonists (memantine)",
+    tags:["pharmacology","dementia","alzheimer","memantine","donepezil","rivastigmine","galantamine","lecanemab","donanemab","ginkgo"],
+    data:rawBank("DEMENTIA_RAW").map(toQ)},
+  "pharma-autacoids":{subject:"pharma",category:"pharma-autacoids",icon:"🧪",cls:"sec-violet",title:"Autacoids & Related Drugs",short:"Autacoids",
+    desc:"Histamine, H1/H2 blockers, serotonin receptor modulators, eicosanoids, and NSAIDs",
+    tags:["pharmacology","pharma","autacoids","histamine","serotonin","prostaglandins","nsaids","leukotrienes","ergot"],
+    data:rawBank("AUTACOIDS_RAW").map(toQ)},
+  "surg-sysresp-exam":{subject:"surg",category:"surg-sysresp",icon:"⚡",cls:"sec-teal",title:"Systemic Response to Injury",short:"Sys Resp to Injury",
+    desc:"Neuroendocrine axis, cytokine activation, ebb and flow phases, hypermetabolism, and acute phase response",
+    tags:["surgery","surg","systemic response","injury","trauma","ebb and flow","cortisol","cytokines","SIRS","hypermetabolism"],
+    data:rawBank("SURG_SYSRESP_RAW").map(toQ)},
+  "surg-fluids-exam":{subject:"surg",category:"surg-fluids",icon:"💧",cls:"sec-teal",title:"Fluids & Electrolytes",short:"Fluids & Lytes",
+    desc:"Fluid compartments, maintenance and deficit calculations, crystalloids vs colloids, and electrolyte imbalances",
+    tags:["surgery","surg","fluids","electrolytes","potassium","sodium","resuscitation","acid-base","osmolarity"],
+    data:rawBank("SURG_FLUIDS_RAW").map(toQ)},
+  "pharma-psychopharmacology": {
+    subject: "pharma",
+    category: "pharma-psychopharma",
+    icon: "💊",
+    cls: "sec-violet",
+    title: "Psychopharmacology",
+    short: "Psychopharma",
+    desc: "Neurotransmitter synthesis, receptors, major depression, bipolar disorder, anxiety disorders, and schizophrenia",
+    tags: ["pharmacology", "pharma", "psychopharma", "antidepressants", "ssri", "tca", "snri", "bipolar", "lithium", "schizophrenia", "antipsychotics", "benzodiazepines"],
+    data: rawBank("PSYCHOPHARMACOLOGY_RAW").map(toQ)
+  },
+};
+validateBank();
+EXAMS["ane-mega"]={subject:"ane",icon:"🔥",cls:"sec-amber",title:"MEGA Exam — All ANE Topics",short:"ANE Mega",
+  desc:"Every item from all three Anesthesiology lectures in one comprehensive sitting",mixed:true,
+  tags:["mega","all","comprehensive","mix","anesthesia","combined"],
+  data:[...EXAMS["ane-preop"].data,...EXAMS["ane-ga"].data,...EXAMS["ane-inh"].data]};
+
+/* ---------- CATEGORIES · folder tier between a subject and its exams ----------
+   Optional: an exam may carry `category:"<id>"` to be grouped under a folder.
+   Exams without a category render directly on the subject page (backward compatible). */
+const CATEGORIES={
+  "surg-2028":{subject:"surg",icon:"📝",color:"#0d9488",cls:"sec-teal",title:"2028 Samplex",
+    desc:"Surgery samplex · A.Y. 2027–2028 — curated topic batches covering the surgery lectures"},
+  "surg-sysresp":{subject:"surg",icon:"⚡",color:"#0d9488",cls:"sec-teal",title:"Systemic Response to Injury",
+    desc:"Neuroendocrine reflexes, cytokine cascades, metabolic phases of trauma, and SIRS/CARS response"},
+  "pharma-anticonvulsants":{subject:"pharma",icon:"🧠",color:"#7c3aed",cls:"sec-violet",title:"Drugs: Antiseizures, Parkinson & Dementia",
+    desc:"Antiseizure agents, anti-Parkinson medications, and drugs for dementia"},
+  "pharma-autacoids":{subject:"pharma",icon:"🧪",color:"#7c3aed",cls:"sec-violet",title:"Autacoids & Related Drugs",
+    desc:"Histamine, serotonin, prostaglandins, leukotrienes, NSAIDs, and related antagonists"},
+  "surg-fluids":{subject:"surg",icon:"💧",color:"#0d9488",cls:"sec-teal",title:"Fluids & Electrolytes",
+    desc:"Body fluid compartments, fluid resuscitation, acid-base balance, and electrolyte derangements"},
+  "pharma-psychopharma": {
+    subject: "pharma",
+    icon: "💊",
+    color: "#7c3aed",
+    cls: "sec-violet",
+    title: "Psychopharma",
+    desc: "Antidepressants, antipsychotics, mood stabilizers, anxiolytics, and sedatives"
+  },
+};
+
+/* ================================================================
+   4) ENGINE — router, storage, exam UI (INSTANT FEEDBACK MODE),
+      results, review
+================================================================ */
+const app=document.getElementById("app");
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const letter=i=>String.fromCharCode(65+i);
+const fmt=t=>{const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;return(h?h+":":"")+String(m).padStart(h?2:1,"0")+":"+String(s).padStart(2,"0");};
+
+const ATT=id=>"medrev-att-"+id, BESTK=id=>"medrev-best-"+id;
+const getBest=id=>{try{return JSON.parse(localStorage.getItem(BESTK(id)))}catch(e){return null}};
+const getAtt=id=>{try{const d=JSON.parse(localStorage.getItem(ATT(id)));if(d&&Array.isArray(d.answers))return d}catch(e){}return null};
+const saveAtt=()=>{if(!E.id)return;try{localStorage.setItem(ATT(E.id),JSON.stringify({id:E.id,cur:E.cur,answers:E.answers,flags:E.flags,elim:E.elim,elapsed:E.elapsed,mode:E.mode,shuffleQ:E.shuffleQ,shuffleO:E.shuffleO,isMissedRun:E.isMissedRun,items:compactItems(E.items)}))}catch(e){storageWarn();}};
+const clearAtt=id=>{try{localStorage.removeItem(ATT(id))}catch(e){}};
+/* last finished attempt, kept so a refresh / revisit can still show the results + review */
+const LASTK=id=>"medrev-last-"+id;
+const getLast=id=>{try{const d=JSON.parse(localStorage.getItem(LASTK(id)));if(d&&Array.isArray(d.answers)&&d.last)return d}catch(e){}return null};
+function saveLast(){try{localStorage.setItem(LASTK(E.id),JSON.stringify({id:E.id,answers:E.answers,flags:E.flags,mode:E.mode,shuffleQ:E.shuffleQ,shuffleO:E.shuffleO,isMissedRun:E.isMissedRun,items:compactItems(E.items),last:E.last,best:E.best||null,date:Date.now()}))}catch(e){storageWarn();}}
+function restoreLast(id,sv){
+  const items=restoreItems(sv.items);if(!items)throw new Error("empty");
+  let answers=Array.isArray(sv.answers)?sv.answers.slice(0,items.length):[];while(answers.length<items.length)answers.push(null);
+  const correct=answers.reduce((n,a,i)=>n+(a===items[i].a?1:0),0);   /* re-scored against the current answer key */
+  return {id,cur:0,answers,flags:(sv.flags&&sv.flags.length===items.length)?sv.flags:new Array(items.length).fill(false),elim:{},elimMode:false,
+    mode:sv.mode||"tutor",shuffleQ:!!sv.shuffleQ,shuffleO:!!sv.shuffleO,isMissedRun:!!sv.isMissedRun,items,elapsed:(sv.last&&sv.last.time)||0,tid:null,done:true,filter:"all",
+    last:{correct,pct:Math.round(correct/items.length*100),time:(sv.last&&sv.last.time)||0},best:sv.best||null};
+}
+const setReviewURL=(id,on)=>{try{history.replaceState(null,"",(on?"#/exam/"+id+"/review":"#/exam/"+id));}catch(e){}};
+
+/* ---------- long-term study data: attempt history, weak spots, cumulative accuracy ---------- */
+const HISTK=id=>"medrev-hist-"+id, WEAKK="medrev-weak", STATSK="medrev-stats";
+const lsGet=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){storageWarn();return false}};
+const getHist=id=>{const h=lsGet(HISTK(id),[]);return Array.isArray(h)?h:[]};
+const getWeak=()=>{const w=lsGet(WEAKK,{});return(w&&typeof w==="object"&&!Array.isArray(w))?w:{}};
+const getStats=()=>{const s=lsGet(STATSK,{});return(s&&typeof s==="object"&&!Array.isArray(s))?s:{}};
+const weakKey=r=>r.join("|");
+function recordResults(){ /* once per finished attempt: history, cumulative accuracy, weak-spot list */
+  const weak=getWeak(),stats=getStats();let added=0,cleared=0;
+  E.items.forEach((q,i)=>{
+    const a=E.answers[i];if(a===null||a===undefined||!q._r)return;
+    const ok=a===q.a,exId=q._r[0],k=weakKey(q._r);
+    const st=stats[exId]||(stats[exId]=[0,0,0,0,0,0]);
+    st[1]++;if(ok)st[0]++;
+    if(q.t==="LOTS"){st[3]++;if(ok)st[2]++;}else{st[5]++;if(ok)st[4]++;}
+    if(!ok){if(!weak[k]){weak[k]={r:q._r,m:0,s:0};added++;}weak[k].m++;weak[k].s=0;weak[k].t=Date.now();}
+    else if(weak[k]){weak[k].s++;if(weak[k].s>=2){delete weak[k];cleared++;}}   /* mastered = 2 correct in a row */
+  });
+  lsSet(WEAKK,weak);lsSet(STATSK,stats);
+  if(!E.isMissedRun){const h=getHist(E.id);h.push({t:Date.now(),pct:E.last.pct,time:E.last.time,n:E.items.length,mode:E.mode});lsSet(HISTK(E.id),h.slice(-30));}
+  E.weakNote={added,cleared,total:Object.keys(weak).length};
+}
+function sparkSVG(v,w,h){
+  w=w||90;h=h||24;if(!v||v.length<2)return "";
+  const pts=v.map((x,i)=>((i*(w-4)/(v.length-1))+2).toFixed(1)+","+(h-2-(Math.max(0,Math.min(100,x))/100)*(h-4)).toFixed(1)).join(" ");
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${pts}"/></svg>`;
+}
+function weakList(){ /* weak spots that still exist in the bank */
+  const w=getWeak(),out=[];
+  for(const k of Object.keys(w)){const src=resolveRef(w[k].r);if(src&&Array.isArray(src.o))out.push({src,ref:w[k].r,m:w[k].m||1,t:w[k].t||0});}
+  return out;
+}
+function launchWeak(size){
+  const list=weakList();if(!list.length){showToast("🎉 No weak spots yet — finish an exam and your misses collect here.");return;}
+  const items=shuffleArr(list).sort((a,b)=>b.m-a.m).slice(0,size||25).map(x=>Object.assign({},x.src,{_r:x.ref}));   /* most-missed first */
+  EXAMS["custom-block"]={...CUSTOM_SUB,title:"Weak Spots Drill",short:"Weak Spots",icon:"🎯",data:items};
+  clearAtt("custom-block");
+  const st={mode:"tutor",shuffleQ:true,shuffleO:true};
+  LAUNCH["custom-block"]=st;PA={id:"custom-block",mode:st.mode,shuffleQ:true,shuffleO:true};
+  location.hash="#/exam/custom-block";
+}
+/* ---------- downloads, Anki export, clipboard ---------- */
+function dlFile(name,mime,text){
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:mime}));a.download=name;
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},100);
+}
+const ankiField=s=>'"'+String(s).replace(/"/g,'""')+'"';
+function exportAnki(entries,fileBase){ /* entries: [{q: display item, ex: exam}] → Anki "Import File" (tab-separated, HTML on) */
+  if(!entries.length){showToast("Nothing to export.");return;}
+  const rows=entries.map(({q,ex})=>{
+    const front=esc(q.q)+"<br><br>"+q.o.map((o,i)=>letter(i)+". "+esc(o)).join("<br>");
+    const back="<b>"+letter(q.a)+". "+esc(q.o[q.a])+"</b><br><br>"+(q.e||"");
+    const tag=((SUBJECTS[ex.subject]?SUBJECTS[ex.subject].name:"Misc")+"::"+(ex.short||ex.title)).replace(/[^\w:]+/g,"_");
+    return [ankiField(front),ankiField(back),tag].join("\t");
+  });
+  dlFile(fileBase+"-"+new Date().toISOString().slice(0,10)+".txt","text/plain","#separator:tab\n#html:true\n#tags column:3\n"+rows.join("\n")+"\n");
+  showToast("🧠 "+entries.length+" card"+(entries.length===1?"":"s")+" exported — in Anki: File → Import.");
+}
+function copyText(t){
+  const fallback=()=>{const ta=document.createElement("textarea");ta.value=t;ta.style.cssText="position:fixed;opacity:0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}ta.remove();};
+  if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).catch(fallback);
+  fallback();return Promise.resolve();
+}
+function reportQuestion(i){
+  const q=E.items[i],a=E.answers[i],exId=q._r?q._r[0]:E.id,ex=EXAMS[exId]||EXAMS[E.id]||{title:E.id};
+  const where=q._r?(exId+" #"+(q._r[1]+1)):E.id;
+  const msg=["Question report — "+ex.title+" ("+where+")",q.q,...q.o.map((o,k)=>letter(k)+". "+o+(k===q.a?"   <-- key":"")+(k===a?"   <-- my answer":"")),
+    "Rationalization: "+String(q.e||"").replace(/<[^>]+>/g,""),"","What is wrong: "].join("\n");
+  copyText(msg).then(()=>showToast("📋 Question copied — paste it to whoever maintains the bank."));
+}
+/* ---------- question-text search (home / subject / category pages) ---------- */
+let QIDX=null;
+function qIndex(){
+  if(QIDX)return QIDX;QIDX=[];
+  for(const [id,e] of Object.entries(EXAMS)){if(id==="custom-block"||e.mixed)continue;
+    e.data.forEach((q,i)=>QIDX.push({id,i,h:norm(q.q+" "+q.o.join(" ")+" "+String(q.e||"").replace(/<[^>]+>/g," "))}));}
+  return QIDX;
+}
+function runQSearch(area,qstr){
+  const box=area.querySelector(".qsearch");if(!box)return;
+  const nq=norm(qstr);
+  if(nq.length<3){box.hidden=true;box.innerHTML="";return;}
+  const sub=box.dataset.subject||"",terms=nq.split(" ").filter(Boolean),hits=[];
+  for(const r of qIndex()){
+    if(sub&&EXAMS[r.id].subject!==sub)continue;
+    if(terms.every(t=>r.h.indexOf(t)!==-1)){hits.push(r);if(hits.length>=60)break;}
+  }
+  const card=r=>{const e=EXAMS[r.id],q=e.data[r.i];
+    return `<details class="qs-item"><summary><span class="chip ${e.cls||"sec-blue"}">${esc(e.short||e.title)}</span>${esc(q.q)}</summary>
+      <div class="qs-body">${q.o.map((o,k)=>`<div class="qs-opt ${k===q.a?"ok":""}">${letter(k)}. ${esc(o)}${k===q.a?" ✓":""}</div>`).join("")}
+      <div class="explain" style="margin-top:8px"><b>💡 Rationalization:</b> ${q.e}</div></div></details>`;};
+  box.hidden=false;
+  box.innerHTML=`<h3 class="sect-h">❓ Matching questions ${hits.length?"("+(hits.length>=60?"60+":hits.length)+")":""}</h3>`+
+    (hits.length?hits.slice(0,30).map(card).join("")+(hits.length>30?`<p class="foot">Showing the first 30 — add more words to narrow it down.</p>`:""):`<p class="muted" style="font-size:14px">No question text matched.</p>`);
+  if(hits.length){const em=area.querySelector(".search-empty");if(em)em.hidden=true;}
+}
+const setBest=(id,pct,time)=>{const b=getBest(id)||{pct:0,attempts:0};
+  const nb={pct:Math.max(pct,b.pct),last:pct,time,attempts:b.attempts+1,date:new Date().toLocaleDateString("en-PH",{month:"short",day:"numeric",year:"numeric"})};
+  try{localStorage.setItem(BESTK(id),JSON.stringify(nb))}catch(e){storageWarn();}return nb;};
+
+let E={id:null,cur:0,answers:[],flags:[],elim:{},elimMode:false,mode:"tutor",shuffleQ:false,shuffleO:false,isMissedRun:false,items:[],elapsed:0,tid:null,done:false,filter:"all",last:null,best:null};
+const LAUNCH={};                                    /* per-exam pending launch settings */
+let PA={id:null,mode:"tutor",shuffleQ:false,shuffleO:false};
+const dfltLaunch=()=>({mode:"tutor",shuffleQ:false,shuffleO:true});   /* choices shuffle by default: the answer keys in data/ are skewed toward B */
+const shuffleArr=a=>{const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;};
+/* An in-progress attempt is saved as references to the question bank ([examId, index, hash] + option permutation),
+   NOT as copies of every question. Resuming therefore always shows the current text/answer key from data/*.js. */
+const qHash=t=>{let h=5381;t=String(t||"");for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return (h>>>0).toString(36);};
+/* every bank question gets its canonical reference once, so questions reused by a MEGA exam are tracked under their SOURCE exam (no duplicate weak spots) */
+for(const [id,e] of Object.entries(EXAMS)){if(e.mixed)continue;e.data.forEach((q,i)=>{if(!q._r)q._r=[id,i,qHash(q.q)];});}
+/* choices that refer to each other must keep their order when "Shuffle Choices" is on */
+const LOCKED_CHOICE=/\b(all|none|both|any|neither)\b.*\b(above|these)\b|^\s*(both\s+)?([a-e]|i{1,3}|iv|v|\d)\s*(,|and|&|\+)\s*([a-e]|i{1,3}|iv|v|\d)\b/i;
+const canShuffle=q=>!q.o.some(o=>LOCKED_CHOICE.test(String(o)));
+function mkItem(src,ref,perm){ /* display item from a bank question; perm[k] = original index of the option shown at position k */
+  const q={t:src.t,q:src.q,o:src.o.slice(),a:src.a,e:src.e,img:src.img||"",_r:ref};
+  if(perm){q.o=perm.map(i=>src.o[i]);q.a=perm.indexOf(src.a);q._p=perm;}
+  return q;
+}
+function resolveRef(ref){ /* [examId, idx, hash] → bank question, tolerant of inserted/removed/edited questions */
+  const ex=ref&&EXAMS[ref[0]];if(!ex)return null;
+  const d=ex.data,i=ref[1];
+  if(d[i]&&qHash(d[i].q)===ref[2])return d[i];
+  const j=d.findIndex(x=>qHash(x.q)===ref[2]);
+  if(j>=0)return d[j];
+  return d[i]||null;                       /* text was edited in place → trust the index */
+}
+function restoreItems(raw){ /* saved items → display items; legacy full-item saves still load. Throws if unresolvable. */
+  if(!Array.isArray(raw)||!raw.length)return null;
+  return raw.map(it=>{
+    if(it&&it.q!==undefined)return it;     /* legacy format */
+    const src=resolveRef(it&&it.r);
+    if(!src||!Array.isArray(src.o))throw new Error("saved question no longer exists");
+    if(it.p&&it.p.length!==src.o.length)throw new Error("choice count changed");
+    return mkItem(src,it.r,it.p||null);
+  });
+}
+function customSources(raw){ /* rebuild the custom-block's un-shuffled source pool from a saved attempt */
+  return raw.map(it=>{
+    if(it&&it.q!==undefined)return it;
+    const src=resolveRef(it&&it.r);
+    if(!src||!Array.isArray(src.o))throw new Error("saved question no longer exists");
+    return Object.assign({},src,{_r:it.r});
+  });
+}
+const compactItems=items=>items.every(q=>q&&q._r)?items.map(q=>({r:q._r,p:q._p||null})):items;
+function buildItems(id,opts){
+  const src=EXAMS[id].data.map((q,i)=>({q,i}));
+  const order=opts.shuffleQ?shuffleArr(src):src;
+  return order.map(({q,i})=>{
+    const ref=q._r||[id,i,qHash(q.q)];
+    const perm=(opts.shuffleO&&canShuffle(q))?shuffleArr(q.o.map((_,k)=>k)):null;
+    return mkItem(q,ref,perm);
+  });
+}
+function fresh(id,opts){
+  opts=opts||{};
+  if(opts.shuffleO===undefined)opts=Object.assign({},opts,{shuffleO:true});
+  const items=buildItems(id,opts);
+  return {id,cur:0,answers:new Array(items.length).fill(null),flags:new Array(items.length).fill(false),
+    elim:{},elimMode:false,mode:opts.mode||"tutor",shuffleQ:!!opts.shuffleQ,shuffleO:!!opts.shuffleO,isMissedRun:false,items,
+    elapsed:0,tid:null,done:false,filter:"all",last:null,best:null};
+}
+function restoreSession(id, sv){
+  const fallbackData = (EXAMS[id] && Array.isArray(EXAMS[id].data)) ? EXAMS[id].data.map((q,i)=>mkItem(q,q._r||[id,i,qHash(q.q)],null)) : [];
+  const items = restoreItems(sv.items) || fallbackData;
+  const m = sv.mode || "tutor";
+  LAUNCH[id] = { mode: m, shuffleQ: !!sv.shuffleQ, shuffleO: !!sv.shuffleO };
+
+  let answers = Array.isArray(sv.answers) ? sv.answers : [];
+  if (answers.length !== items.length) {
+    const fixed = new Array(items.length).fill(null);
+    answers.forEach((ans, idx) => { if (idx < items.length) fixed[idx] = ans; });
+    answers = fixed;
+  }
+
+  return {
+    id,
+    cur: (typeof sv.cur === "number" && sv.cur < items.length) ? sv.cur : 0,
+    answers,
+    flags: (sv.flags && sv.flags.length === items.length) ? sv.flags : new Array(items.length).fill(false),
+    elim: (sv.elim && typeof sv.elim === "object" && !Array.isArray(sv.elim)) ? sv.elim : {},
+    mode: m,
+    shuffleQ: !!sv.shuffleQ,
+    shuffleO: !!sv.shuffleO,
+    isMissedRun: !!sv.isMissedRun,
+    items,
+    elapsed: sv.elapsed || 0,
+    tid: null,
+    done: false,
+    filter: "all",
+    last: null,
+    best: null
+  };
+}
+
+function startTimer(){
+  stopTimer();
+  let last=Date.now(),acc=0,lastSave=E.elapsed;
+  E.tid=setInterval(()=>{
+    const now=Date.now(),dt=now-last;last=now;
+    if(document.hidden)return;                 /* study time only: hidden/sleeping tabs don't count */
+    acc+=Math.min(dt,1500);                    /* wall-clock based, so throttled timers can't make it run slow */
+    while(acc>=1000){acc-=1000;E.elapsed++;}
+    const t=document.getElementById("timer");if(t)t.textContent=fmt(E.elapsed);
+    if(E.elapsed-lastSave>=5){lastSave=E.elapsed;saveAtt();}
+  },250);
+}
+function stopTimer(){if(E.tid){clearInterval(E.tid);E.tid=null;}}
+function hideOverlays(){["navOverlay","confirmOverlay","resetOverlay","importOverlay","customBlockOverlay","imgLightbox"].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=true;});}
+
+/* ---------- THEME ---------- */
+const THEME_KEY="medrev-theme";
+function currentTheme(){return document.documentElement.getAttribute("data-theme")||"light";}
+function setTheme(t){
+  document.documentElement.setAttribute("data-theme",t);
+  try{localStorage.setItem(THEME_KEY,t)}catch(e){}
+}
+function toggleTheme(){setTheme(currentTheme()==="dark"?"light":"dark");syncThemeBtns();}
+function syncThemeBtns(){
+  const icon=currentTheme()==="dark"?"☀️":"🌙";
+  const all=[];document.querySelectorAll("#themeBtn,[data-theme-btn]").forEach(b=>all.push(b));
+  all.forEach(b=>b.textContent=icon);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-theme-btn]");if(b){toggleTheme();}});
+function themeBtnHTML(cls,style){
+  return `<button class="theme-btn ${cls||""}" ${style?`style="${style}"`:""} data-theme-btn title="Toggle light/dark mode" aria-label="Toggle light/dark mode"></button>`;
+}
+
+/* ---------- SEARCH & FILTER ---------- */
+const norm=s=>String(s||"").toLowerCase().replace(/\s+/g," ").trim();
+const searchHay=(...parts)=>norm(parts.filter(Boolean).join(" "));
+function filterSearch(inp){
+  const area=inp.closest(".search-area")||document.getElementById("app");
+  const q=norm(inp.value);
+  let shown=0;
+  area.querySelectorAll("[data-search]").forEach(el=>{
+    const on=!q||el.dataset.search.indexOf(q)!==-1;
+    el.hidden=!on;if(on)shown++;
+  });
+  /* feature 6 · auto-hide an entire section (heading + its grid) when searching hides every card inside it */
+  area.querySelectorAll(".search-sec").forEach(sec=>{
+    const vis=[...sec.querySelectorAll("[data-search]")].filter(el=>!el.hidden).length;
+    sec.hidden=q!==""&&vis===0;
+  });
+  const empty=area.querySelector(".search-empty");
+  if(empty)empty.hidden=!(q&&shown===0);
+  const count=area.querySelector(".search-count");
+  if(count)count.textContent=q?(shown+" result"+(shown===1?"":"s")+" found"):(shown+" items");
+  runQSearch(area,inp.value);
+}
+function bindPageSearch(){
+  app.querySelectorAll(".search-input").forEach(inp=>{
+    inp.addEventListener("input",()=>filterSearch(inp));
+  });
+}
+
+function runningScore(){
+  return E.answers.reduce((s,a,i)=>s+(a===E.items[i].a?1:0),0);
+}
+function updateProgress(){
+  const n=E.items.length,a=E.answers.filter(x=>x!==null).length;
+  document.getElementById("pfill").style.width=(n?a/n*100:0)+"%";
+  document.getElementById("answeredTxt").textContent="Answered "+a+"/"+n+" · Score "+runningScore();
+  document.getElementById("timer").textContent=fmt(E.elapsed);
+}
+
+/* ---------- ROUTER ---------- */
+function route(){
+  stopTimer();hideOverlays();
+  if(E.id&&!E.done)saveAtt();
+  document.getElementById("topbar").hidden=true;
+  const h=location.hash||"#/";
+  let m;
+  /* Global rehydration for custom blocks if in-progress data exists */
+  if(!EXAMS["custom-block"]){
+    const svCustom=getAtt("custom-block");
+    if(svCustom&&Array.isArray(svCustom.items)&&svCustom.items.length){
+      try{EXAMS["custom-block"]={...CUSTOM_SUB,data:customSources(svCustom.items)};}
+      catch(err){console.warn("Custom block could not be restored:",err);clearAtt("custom-block");}
+    }
+  }
+  if(m=h.match(/^#\/exam\/([a-z0-9-]+)(\/review)?/i)){
+    const id=m[1],wantReview=!!m[2];
+    if(wantReview&&id==="custom-block"&&!EXAMS[id]&&getLast(id))EXAMS[id]={...CUSTOM_SUB,data:[]};
+    if(EXAMS[id]){
+      let loadedLast=false;
+      if(wantReview&&!(E.id===id&&E.done)){
+        const ls=getLast(id);
+        if(ls){try{E=restoreLast(id,ls);loadedLast=true;}catch(err){console.warn("Last result could not be restored:",err);}}
+      }
+      if(!loadedLast&&E.id!==id){
+        const sv=getAtt(id);
+        const pa=(PA.id===id)?{mode:PA.mode,shuffleQ:PA.shuffleQ,shuffleO:PA.shuffleO}:null;
+        PA.id=null;
+        try{E=sv?restoreSession(id,sv):fresh(id,pa||{mode:"tutor"});}
+        catch(err){console.warn("Session restore failed, resetting:",err);clearAtt(id);E=fresh(id,pa||{mode:"tutor"});}
+        if(pa)LAUNCH[id]={mode:pa.mode,shuffleQ:pa.shuffleQ,shuffleO:pa.shuffleO};
+      }
+      try{if(E.done){renderResults();}else{renderExam();if(E.items.length>0)startTimer();}}
+      catch(err){console.error("Exam runner error, falling back to fresh:",err);clearAtt(id);E=fresh(id);renderExam();if(E.items.length>0)startTimer();}
+      window.scrollTo({top:0});return;
+    }
+  }
+  E.id=null;
+  if(m=h.match(/^#\/progress/i)){renderProgress();}
+  else if(m=h.match(/^#\/guide/i)){renderGuide();}
+  else if(m=h.match(/^#\/s\/([a-z0-9-]+)\/([a-z0-9-]+)/i)){renderCategory(m[1],m[2]);}
+  else if(m=h.match(/^#\/s\/([a-z0-9-]+)/i)){renderSubject(m[1]);}
+  else renderHome();
+  window.scrollTo({top:0});
+}
+window.addEventListener("hashchange",route);
+
+/* ================================================================
+   FEATURE 2 · JSON BACKUP / RESTORE / RESET
+   (export a .json of every medrev-* localStorage key; import it back;
+    or wipe all progress — subject registry + theme survive the wipe)
+=============================================================== */
+function backupKeys(){ /* all app-owned keys (any key this app writes) */
+  const out=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k.indexOf("medrev-")===0)out.push(k);
+  }
+  return out;
+}
+function aggAllData(){ /* {key:value,...} for every backup-able key */
+  const o={};
+  for(const k of backupKeys()){try{o[k]=localStorage.getItem(k);}catch(e){}}
+  return o;
+}
+
+
+
+
+
+/* ================================================================
+   FEATURE 4 · CUSTOM MULTI-SUBJECT BLOCK BUILDER
+   (pick any subjects, pick a size, pick LOTS/HOTS/both, get a fresh
+    mixed-length "custom-block" exam that stores its OWN progress/best
+    under medrev-att-custom-block / medrev-best-custom-block, never
+    touching the registered subjects' historical scores)
+=============================================================== */
+const CUSTOM_SUB={subject:"custom",icon:"🎯",cls:"sec-amber",title:"Custom Review Block",short:"Custom",desc:"Your hand-picked mix of subjects."};
+let customTier="all",customSize=50,customMode="tutor",customShufQ=true,customShufO=true,customSel=new Set();
+
+/* ---------- overlay lifecycle ---------- */
+function openCustomBlock(){ /* feature-4 launcher: show the builder modal */
+  const ovl=document.getElementById("customBlockOverlay");if(!ovl)return;
+  customSel=new Set();customTier="all";customSize=50;customMode="tutor";customShufQ=true;customShufO=true;
+  syncCustomTierUI();renderCustomSubjects();renderCustomSegs();
+  ovl.hidden=false;document.getElementById("customBlockClose")?.focus();
+  bindCustomBlockOverlay();
+}
+function bindCustomBlockOverlay(){ /* wire feature-4 modal controls once */
+  const ovl=document.getElementById("customBlockOverlay");if(!ovl||ovl.dataset.bound)return;ovl.dataset.bound="1";
+  const close=id=>document.getElementById(id)?.addEventListener("click",()=>{ovl.hidden=true;});
+  close("customBlockClose");close("customBlockCancel");
+  document.getElementById("customBlockLaunch")?.addEventListener("click",launchCustomBlock);
+  document.querySelectorAll("#customSizeSeg .seg-b").forEach(b=>b.onclick=()=>{
+    customSize=+b.dataset.n;syncCustomSegs("customSizeSeg",customSize);});
+  document.querySelectorAll("#customTierSeg .seg-b").forEach(b=>b.onclick=()=>{
+    customTier=b.dataset.t;syncCustomSegs("customTierSeg",customTier);});
+  document.querySelectorAll("#customModeSeg .seg-b").forEach(b=>b.onclick=()=>{
+    customMode=b.dataset.m;syncCustomSegs("customModeSeg",customMode);});
+  document.getElementById("customAllSubj")?.addEventListener("click",e=>{
+    const on=e.target.checked;
+    document.querySelectorAll("#customSubjList [data-subj]").forEach(c=>c.checked=on);syncSelCount();});
+  document.getElementById("customShufQ")?.addEventListener("change",e=>customShufQ=e.target.checked);
+  document.getElementById("customShufO")?.addEventListener("change",e=>customShufO=e.target.checked);
+}
+function renderCustomSubjects(){ /* checkbox grid of selectable subjects */
+  const wrap=document.getElementById("customSubjList");if(!wrap)return;
+  const subs=Object.entries(SUBJECTS).filter(([id])=>Object.values(EXAMS).some(e=>e.subject===id&&!e.mixed));
+  wrap.innerHTML=subs.map(([id,s])=>{
+    const exs=Object.values(EXAMS).filter(e=>e.subject===id&&!e.mixed);
+    const items=exs.reduce((a,e)=>a+e.data.length,0);
+    return `<label class="bpc"><input type="checkbox" data-subj="${id}" value="${id}" checked onchange="syncSelCount()"> ${s.icon} <b>${s.name}</b> <span class="bpc-n" style="margin-left:auto;font-size:11px;color:var(--muted)">${exs.length} exam${exs.length>1?"s":""} · ${items} items</span></label>`;
+  }).join("")||`<p style="font-size:13px;color:var(--muted);grid-column:1/-1">No subjects have exams yet.</p>`;
+  syncSelCount();
+}
+function syncSelCount(){ /* live "X subjects selected" pill */
+  const el=document.getElementById("customSelCount");if(!el)return;
+  const n=document.querySelectorAll("#customSubjList [data-subj]:checked").length;
+  el.textContent=n+` subject${n===1?"":"s"} selected`;
+}
+function renderCustomSegs(){ /* set defaults for the segmented controls */
+  document.querySelectorAll("#customSizeSeg .seg-b").forEach(b=>b.classList.toggle("on",+b.dataset.n===customSize));
+  document.querySelectorAll("#customTierSeg .seg-b").forEach(b=>b.classList.toggle("on",b.dataset.t===customTier));
+  document.querySelectorAll("#customModeSeg .seg-b").forEach(b=>b.classList.toggle("on",b.dataset.m===customMode));
+  const q=document.getElementById("customShufQ");if(q)q.checked=customShufQ;
+  const o=document.getElementById("customShufO");if(o)o.checked=customShufO;
+}
+function syncCustomSegs(segId,activeVal){document.querySelectorAll(`#${segId} .seg-b`).forEach(b=>{
+  const match=b.dataset.n?(+b.dataset.n===activeVal):(b.dataset.t===activeVal||b.dataset.m===activeVal);
+  b.classList.toggle("on",match);});
+}
+function syncCustomTierUI(){/*(controls derived from customTier)*/}
+
+function launchCustomBlock(){ /* assemble the pool, register a scratch exam, start it */
+  const sel=[...document.querySelectorAll("#customSubjList [data-subj]:checked")].map(c=>c.value);
+  if(!sel.length){showToast("👆 Tick at least one subject.");return;}
+  const pool=[];
+  for(const [id,e] of Object.entries(EXAMS)){
+    if(id==="custom-block"||e.mixed||!sel.includes(e.subject))continue;
+    for(const [qi,q] of e.data.entries()){
+      if(customTier!=="all"&&q.t!==(customTier==="LOTS"?"LOTS":"HOTS"))continue;
+      pool.push(Object.assign({},q,{_r:q._r||[id,qi,qHash(q.q)]}));
+    }
+  }
+  if(!pool.length){showToast("😕 No questions match those subjects + tier. Try another combo.");return;}
+  const items=shuffleArr(pool).slice(0,Math.min(customSize,pool.length));
+  EXAMS["custom-block"]={...CUSTOM_SUB,data:items};
+  clearAtt("custom-block");
+  LAUNCH["custom-block"]={mode:customMode,shuffleQ:customShufQ,shuffleO:customShufO};
+  PA={id:"custom-block",mode:customMode,shuffleQ:customShufQ,shuffleO:customShufO};
+  document.getElementById("customBlockOverlay").hidden=true;
+  location.hash="#/exam/custom-block";
+}
+
+/* ================================================================
+   FEATURE 6·keyboard polish — F flag, X elim-mode, Escape closes
+=============================================================== */
+/* ---------- FEATURE 6 · elim-mode + flags (keyboard-first) ---------- */
+function showToast(msg){ /* shared toast used by features 2 & 6 (topbar pill + tbody jump) */
+  let h=document.getElementById("toastHost");
+  if(!h){h=document.createElement("div");h.id="toastHost";h.setAttribute("role","status");h.setAttribute("aria-live","polite");
+    h.style.cssText="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;transition:opacity .25s,transform .25s";
+    document.body.appendChild(h);}
+  const t=document.createElement("div");
+  t.className="toast-pill";
+  t.style.cssText="background:var(--card);border:1px solid var(--border);border-radius:999px;padding:9px 16px;font-size:13px;box-shadow:0 4px 18px rgba(16,24,40,.14);opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s";
+  t.textContent=msg;
+  h.appendChild(t);
+  requestAnimationFrame(()=>{t.style.opacity="1";t.style.transform="translateY(0)";});
+  setTimeout(()=>{t.style.opacity="0";t.style.transform="translateY(6px)";},2250);
+  setTimeout(()=>t.remove(),2600);
+}
+function syncElimModeInd(){ /* feature-6 · toggle the elim-mode indicator pill + topbar border state */
+  const tb=document.getElementById("topbar");
+  if(tb)tb.classList.toggle("elim-active",!!E?.elimMode);
+  const pill=document.getElementById("elimModePill");
+  if(pill)pill.hidden=!E?.elimMode;
+  return;
+}
+function toggleElimMode(){ /* feature-6 · cycle: off → elimMode(indicator) → off */
+  if(E.elimMode){E.elimMode=false;syncElimModeInd();showToast("✕ Elim-mode OFF");}
+  else{E.elimMode=true;syncElimModeInd();showToast("✏️ Elim-mode ON — 1–4/A–D strikes choices instead of answering");}
+  return;
+}
+
+function flagToggle(){
+  toggleFlag();
+  const btn=document.getElementById("btnFlag");
+  if(btn)btn.classList.toggle("on",!!E.flags[E.cur]);
+  return;
+}
+
+function openResetOverlay(){ /* feature-2 · confirm modal for wiping all progress */
+  const ovl=document.getElementById("resetOverlay");if(!ovl)return;
+  ovl.hidden=false;
+}
+
+function resetAllProgress(){ /* feature-2 · actually erase all medrev-* (theme survives) */
+  for(const k of backupKeys()){if(k==="medrev-theme")continue;try{localStorage.removeItem(k);}catch(e){}}
+  const ovl=document.getElementById("resetOverlay");if(ovl)ovl.hidden=true;
+  showToast("🗑 All progress cleared.");
+  setTimeout(()=>{location.hash="#/";location.reload();},350);
+}
+
+function exportBackup(){ /* feature-2 · download every medrev-* key as .json */
+  const o=aggAllData();
+  if(!Object.keys(o).length){showToast("Nothing to back up yet.");return;}
+  const blob=new Blob([JSON.stringify(o,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="medreviewer-backup-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},100);
+  showToast("💾 Backup exported.");
+}
+
+let PENDING_IMPORT=null;
+function importBackup(inp){ /* read + validate the file, then let the user choose Merge or Replace */
+  const f=inp&&inp.files&&inp.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const data=JSON.parse(rd.result);
+      if(!data||typeof data!=="object"||Array.isArray(data))throw new Error("not a JSON object");
+      const clean={};let nBest=0,nAtt=0;
+      for(const [k,v] of Object.entries(data)){
+        if(!/^medrev-[\w-]+$/.test(k)||typeof v!=="string")continue;
+        clean[k]=v;if(k.indexOf("medrev-best-")===0)nBest++;if(k.indexOf("medrev-att-")===0)nAtt++;
+      }
+      if(!Object.keys(clean).length)throw new Error("no app data");
+      PENDING_IMPORT=clean;
+      document.getElementById("importSummary").textContent="This file holds "+Object.keys(clean).length+" saved item(s): "+nBest+" best score(s) and "+nAtt+" in-progress attempt(s).";
+      document.getElementById("importOverlay").hidden=false;
+    }catch(err){showToast("❌ Invalid backup file — pick a .json exported from this app.");}
+  };
+  rd.readAsText(f);
+  inp.value="";
+}
+function applyImport(mode){
+  const data=PENDING_IMPORT;PENDING_IMPORT=null;
+  document.getElementById("importOverlay").hidden=true;if(!data)return;
+  const J=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
+  const P=v=>{try{return JSON.parse(v)}catch(e){return null}};
+  let n=0;
+  for(const [k,v] of Object.entries(data)){
+    try{
+      if(mode==="replace"){localStorage.setItem(k,v);n++;continue;}
+      const have=localStorage.getItem(k);
+      if(k==="medrev-theme")continue;
+      if(have==null){localStorage.setItem(k,v);n++;continue;}
+      const a=P(have),b=P(v);if(a==null||b==null)continue;
+      if(k.indexOf("medrev-best-")===0){                       /* keep the better score, the larger attempt count */
+        const win=(b.pct||0)>(a.pct||0)?b:a;
+        localStorage.setItem(k,JSON.stringify({...win,attempts:Math.max(a.attempts||0,b.attempts||0)}));n++;
+      }else if(k.indexOf("medrev-last-")===0){ if((b.date||0)>(a.date||0)){localStorage.setItem(k,v);n++;} }
+      else if(k.indexOf("medrev-hist-")===0&&Array.isArray(a)&&Array.isArray(b)){
+        const seen=new Set(a.map(x=>x.t)),all=a.concat(b.filter(x=>!seen.has(x.t))).sort((x,y)=>x.t-y.t);
+        localStorage.setItem(k,JSON.stringify(all.slice(-30)));n++;
+      }else if(k==="medrev-weak"){ const m={...b,...a};for(const w in b)if(a[w])m[w]=(b[w].m||0)>(a[w].m||0)?b[w]:a[w];localStorage.setItem(k,JSON.stringify(m));n++; }
+      else if(k==="medrev-stats"){ const m={...b,...a};for(const e in b)if(a[e])m[e]=(b[e][1]||0)>(a[e][1]||0)?b[e]:a[e];localStorage.setItem(k,JSON.stringify(m));n++; }
+      /* medrev-att-* : keep what is in progress on this device */
+    }catch(e){storageWarn();}
+  }
+  showToast("📥 "+(mode==="replace"?"Replaced":"Merged")+" — "+n+" entr"+(n===1?"y":"ies")+" updated.");
+  setTimeout(()=>{location.hash="#/";location.reload();},500);
+}
+(function(){
+  const hook=(id,fn)=>{const b=document.getElementById(id);if(b)b.addEventListener("click",fn);};
+  hook("importCloseBtn",()=>{PENDING_IMPORT=null;document.getElementById("importOverlay").hidden=true;});
+  hook("importCancelBtn",()=>{PENDING_IMPORT=null;document.getElementById("importOverlay").hidden=true;});
+  hook("importMergeBtn",()=>applyImport("merge"));
+  hook("importReplaceBtn",()=>applyImport("replace"));
+})();
+
+
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const officialExams=Object.entries(EXAMS).filter(([id,e])=>id!=="custom-block"&&!e.mixed);
+  const totalEx=officialExams.length;
+  const totalItems=officialExams.reduce((s,[,e])=>s+e.data.length,0);
+  const completed=officialExams.filter(([id])=>getBest(id)).length;
+  const allBests=officialExams.map(([id])=>getBest(id)).filter(b=>b&&b.pct!=null);
+  const overallAvg=totalEx?Math.round(allBests.reduce((s,b)=>s+b.pct,0)/totalEx):0;   /* same definition as the subject bars: not-yet-taken exams count as 0 */
+  const weakCount=weakList().length;
+  const prog=Object.keys(EXAMS).map(id=>({id,att:getAtt(id)})).filter(x=>x.att&&x.att.answers.some(a=>a!==null));
+  const subs=Object.entries(SUBJECTS).map(([k,s])=>{
+    const exsAll=Object.entries(EXAMS).filter(([,e])=>e.subject===k);
+    const exs=exsAll.filter(([,e])=>!e.mixed);   /* MEGA re-uses other exams' items — keep it out of totals */
+    const n=exs.length,items=exs.reduce((a,[,e])=>a+e.data.length,0);
+    const records=exs.map(([id])=>getBest(id)).filter(b=>b&&b.pct!=null);
+    const avgScore=records.length?Math.round(records.reduce((a,b)=>a+b.pct,0)/records.length):0;
+    const subjectMasteryPct=n>0?Math.round(records.reduce((a,b)=>a+b.pct,0)/n):0;
+    const hay=searchHay(s.name,s.desc,exsAll.map(([id,e])=>[e.title,e.desc,(e.tags||[]).join(" "),id]).flat().join(" "));
+    let metaHTML='';
+    if(n>0){
+      const fillLabel=records.length>0?`🏆 ${avgScore}% avg score · ${records.length}/${n} completed`:`⚪ 0% · 0/${n} completed`;
+      metaHTML=`<div class="s-mastery"><div class="s-mtrack"><div class="s-mfill" style="width:${subjectMasteryPct}%;background:${s.color}"></div></div><span class="s-mval">${fillLabel}</span></div>
+      <div class="smeta"><span class="chip sec-blue">${n} exam${n>1?"s":""}</span><span class="chip skipc">${items} items</span></div>`;
+    }else{
+      metaHTML=`<span class="chip skipc">Coming soon</span>`;
+    }
+    return `<a class="scard" href="#/s/${k}" data-search="${esc(hay)}">
+      <div class="sicon" style="background:${s.color}">${s.icon}</div>
+      <div style="flex:1"><b>${s.name}</b><div class="sd">${s.desc}</div>${metaHTML}</div></a>`;
+  }).join("");
+  app.innerHTML=`
+  <div class="sitehero">
+    <div class="hero-top"><h1>🩺 Med Reviewer Hub</h1>${themeBtnHTML("","margin-left:auto")}</div>
+    <p>2nd Year Medicine · University of Santo Tomas · A.Y. 2026–2027 — pick a subject, choose a topic exam, answer one question at a time with instant feedback.</p>
+    <div class="hstats">
+      <div class="hstat"><b>${totalEx}</b><span>Exams</span></div>
+      <div class="hstat"><b>${totalItems}</b><span>Total items</span></div>
+      <div class="hstat"><b>${completed}</b><span>Completed</span></div>
+      <div class="hstat"><b>${overallAvg}%</b><span>Overall Mastery</span></div>
+    </div>
+    <div class="hero-links">
+      <button class="btn hero-cta" onclick="openCustomBlock()">🎯 Build a Custom Review Block</button>
+      ${weakCount?`<button class="btn hero-cta" onclick="launchWeak(25)">🔥 Drill my weak spots (${weakCount})</button>`:""}
+      <a class="btn hero-cta" href="#/progress">📊 My Progress</a>
+    </div>
+  </div>
+  ${dataWarnHTML()}
+  ${prog.length?`
+    <div class="resume-sec" style="margin-top:18px">
+      <h3 class="sect-h" style="margin:0 0 10px">⏳ Continue where you left off</h3>
+      <div class="resumebox" style="margin:0 0 18px;padding:4px 18px">
+        ${prog.map(x=>{const ex=EXAMS[x.id];const d=x.att.answers.filter(a=>a!==null).length;
+          return `<div class="resumeitem"><div><b>${ex.icon} ${ex.title}</b> <span class="chip skipc">${d}/${x.att.answers.length} answered</span></div>
+          <a class="btn ghost" href="#/exam/${x.id}">Resume →</a></div>`;}).join("")}
+      </div>
+    </div>`:""}
+  <div class="search-area">
+    <input type="search" class="search-input" placeholder="🔍 Search exams, subjects, or any question text…" aria-label="Search subjects and exams">
+    <div class="search-sec">
+      <h3 class="sect-h" style="margin: 16px 0 10px;">📚 Subjects & Modules</h3>
+      <div class="sgrid">${subs}</div>
+    </div>
+    <div class="emptybox search-empty" hidden>🔍 No matching subjects or exams — try another keyword.</div>
+    <div class="qsearch" hidden></div>
+  </div>
+  <div style="margin-top:18px;text-align:center"><a class="btn ghost" href="#/guide">📘 Guide — how to add subjects & exams</a></div>
+  <p class="foot">Built as a personal reviewer · progress & best scores are saved locally in this browser.</p>`;
+  bindPageSearch();
+  syncThemeBtns();
+}
+
+/* ---------- PROGRESS ---------- */
+function renderProgress(){
+  const stats=getStats(),weakAll=getWeak(),weak=weakList();
+  const real=Object.entries(EXAMS).filter(([id,e])=>id!=="custom-block"&&!e.mixed);
+  const attempts=real.reduce((n,[id])=>n+getHist(id).length,0);
+  const tot=Object.values(stats).reduce((a,x)=>[a[0]+x[0],a[1]+x[1]],[0,0]);
+  const acc=tot[1]?Math.round(tot[0]/tot[1]*100):null;
+  const pc=(ok,n)=>n?Math.round(ok/n*100)+"%":"—";
+  const secs=Object.entries(SUBJECTS).map(([k,sj])=>{
+    const exs=real.filter(([,e])=>e.subject===k);if(!exs.length)return "";
+    const rows=exs.map(([id,e])=>{
+      const h=getHist(id),b=getBest(id),st=stats[id]||[0,0,0,0,0,0];
+      const wk=Object.values(weakAll).filter(w=>w.r&&w.r[0]===id).length;
+      return `<tr><td><a href="#/s/${k}${e.category?"/"+e.category:""}">${e.icon} ${esc(e.short||e.title)}</a></td>
+        <td>${h.length||(b?b.attempts:0)}</td><td>${b?b.pct+"%":"—"}</td><td>${h.length?h[h.length-1].pct+"%":"—"}</td>
+        <td>${sparkSVG(h.map(x=>x.pct),80,22)||"—"}</td><td>${pc(st[0],st[1])} <span class="muted">(${st[1]})</span></td>
+        <td>${pc(st[2],st[3])}</td><td>${pc(st[4],st[5])}</td><td>${wk||"—"}</td></tr>`;}).join("");
+    return `<h3 class="sect-h" style="margin:22px 0 0">${sj.icon} ${sj.name}</h3>
+      <div class="ptable-wrap"><table class="ptable"><thead><tr><th>Exam</th><th>Attempts</th><th>Best</th><th>Last</th><th>Trend</th><th>All-time accuracy</th><th>LOTS</th><th>HOTS</th><th>Weak</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }).join("");
+  app.innerHTML=`
+  <div class="crumbs"><a href="#/">🏠 All Subjects</a> <span>›</span> <b>📊 My Progress</b>${themeBtnHTML("","margin-left:auto")}</div>
+  <div class="pstats">
+    <div class="pstat"><b>${attempts}</b><span>Attempts logged</span></div>
+    <div class="pstat"><b>${tot[1]}</b><span>Questions answered</span></div>
+    <div class="pstat"><b>${acc===null?"—":acc+"%"}</b><span>All-time accuracy</span></div>
+    <div class="pstat"><b>${weak.length}</b><span>Weak spots</span></div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+    <button class="btn" id="pgWeak" ${weak.length?"":"disabled"}>🔥 Drill my weak spots</button>
+    <button class="btn ghost" id="pgAnki" ${weak.length?"":"disabled"}>🧠 Export weak spots to Anki</button>
+  </div>
+  <p class="muted" style="font-size:12.5px;margin-top:8px">A question joins your weak spots when you answer it wrong, and leaves after you get it right twice in a row. History and accuracy start counting from now.</p>
+  ${secs||`<div class="emptybox"><div class="big">📭</div><b>Nothing here yet</b><p style="font-size:13.5px;margin-top:4px">Finish an exam and your history shows up here.</p></div>`}
+  <p style="text-align:center;margin-top:16px"><a class="btn ghost" href="#/">← Back to Subjects</a></p>`;
+  document.getElementById("pgWeak").onclick=()=>launchWeak(25);
+  document.getElementById("pgAnki").onclick=()=>exportAnki(weak.map(w=>({q:mkItem(w.src,w.ref,null),ex:EXAMS[w.ref[0]]})).filter(x=>x.ex),"anki-weak-spots");
+  syncThemeBtns();
+}
+
+/* ---------- GUIDE ---------- */
+function renderGuide(){
+  app.innerHTML=`
+  <div class="crumbs"><a href="#/">🏠 All Subjects</a> <span>›</span> <b>📘 Guide</b>${themeBtnHTML("","margin-left:auto")}</div>
+  <div class="card howto" style="margin-top:6px">
+    <h2 style="font-size:19px">➕ Adding new subjects & exams</h2>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:4px">Questions live in the <code>data/</code> folder; subjects, categories and exams are registered in this file (<code>index.html</code>):</p>
+    <ol class="ul">
+      <li>Write the questions in the compact 5-part format (below) inside a <code>data/*.js</code> file as <code>const MY_TOPIC_RAW = [ ... ];</code>.</li>
+      <li>If it is a brand-new data file, add a <code>&lt;script src="data/yourfile.js?v=1"&gt;&lt;/script&gt;</code> tag near the top of <code>index.html</code>. If you edited an existing data file, <b>bump its <code>?v=</code> number</b> so browsers (and the offline cache) fetch the new answer keys.</li>
+      <li>Register the exam in <b>EXAMS</b> with <code>data:rawBank("MY_TOPIC_RAW").map(toQ)</code> (copy any existing entry). Add a subject in <b>SUBJECTS</b> or a folder in <b>CATEGORIES</b> if needed.</li>
+      <li>Refresh. The home page shows an amber warning if a data file is missing, an answer index is out of range, choices are duplicated, or a rationalization is missing.</li>
+    </ol>
+<pre>// Question format: [type, "Question", ["Option A","Option B",...], correctIndex, "Rationalization"]
+["L","The most powerful predictor of cardiac risk:",
+ ["Functional status (METs)","Age","Uncontrolled hypertension","Smoking history"],0,
+ "Functional status measured in &lt;b&gt;METs&lt;/b&gt; is the most powerful predictor of cardiac risk."]
+
+// Register an exam (copy an existing entry as a template):
+"patho-immune":{subject:"patho",icon:"🧬",cls:"sec-teal",title:"Diseases of the Immune System",
+  short:"Immune System Diseases",desc:"...",tags:["immune","SLE","hypersensitivity","HIV"],data:rawBank("IMMUNE_RAW").map(toQ)}</pre>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:12px"><b>Tips:</b> type is <b>"L"</b> (LOTS recall) or <b>"H"</b> (HOTS application/analysis); <b>correctIndex</b> is 0-based; questions and options are escaped automatically, but the rationalization is rendered as HTML (use <code>&lt;b&gt;</code> for emphasis). Choices like "All of the above" or "A and B" are never shuffled. Item counts update by themselves — do not type them into titles.</p>
+    <h3 style="font-size:15px;margin-top:18px">⌨️ Shortcuts</h3>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:4px">1–4 / A–D select · ← → or N / P move · Enter / Space next · F flag · X strike-out mode · Esc closes dialogs · on phones, swipe left/right to move between questions.</p>
+    <div class="backupcard" style="margin-top:18px">
+      <h3 style="font-size:15px;margin-bottom:8px">💾 Data & Progress Backup</h3>
+      <p style="font-size:13px;color:var(--muted)">Your progress, scores, history and weak spots live in this browser's local storage. Export a backup before clearing browser data, or to move to another device (Import offers Merge or Replace).</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn" onclick="exportBackup()">📤 Export Backup (.json)</button>
+        <button class="btn ghost" onclick="document.getElementById('importBackupFile').click()">📥 Import Backup</button>
+        <button class="btn ghost" onclick="openResetOverlay()">🗑 Reset All Progress</button>
+        <input type="file" id="importBackupFile" accept="application/json,.json" hidden onchange="importBackup(this)">
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn ghost" href="#/">← Back to Subjects</a></p>
+  <p class="foot">Built as a personal reviewer · progress & best scores are saved locally in this browser.</p>`;
+  syncThemeBtns();
+}
+
+/* ---------- SUBJECT PAGE ---------- */
+function examCardHTML(id,e){ /* shared .ecard markup for any exam listing */
+  const lots=e.data.filter(q=>q.t==="LOTS").length,hots=e.data.length-lots;
+  const b=getBest(id),att=getAtt(id);
+  const inProg=att&&att.answers.some(a=>a!==null);
+  const progN=inProg?att.answers.filter(a=>a!==null).length:0;
+  const l=LAUNCH[id]||dfltLaunch();
+  const lastSv=getLast(id),hist=getHist(id);
+  const catTitle=e.category&&CATEGORIES[e.category]?CATEGORIES[e.category].title:"";
+  const hay=searchHay(SUBJECTS[e.subject].name,catTitle,e.title,e.desc,(e.tags||[]).join(" "),id,"MEGA");
+  return `<div class="ecard" data-search="${esc(hay)}">
+    <div class="einfo">
+      <div class="etitle">${e.icon} ${e.title} ${e.mixed?`<span class="chip hot">MEGA</span>`:""}</div>
+      <div class="edesc">${e.desc}</div>
+      <div class="echips">
+        <span class="chip ${e.cls||"sec-blue"}">${e.data.length} items</span>
+        <span class="chip lot">🧠 ${lots} LOTS</span>
+        <span class="chip hot">🔥 ${hots} HOTS</span>
+        ${b?`<span class="best">🏆 Best ${b.pct}%</span><span class="chip skipc">${b.attempts} attempt${b.attempts>1?"s":""}</span>`:""}
+        ${hist.length>=2?`<span class="chip skipc" title="Your last ${Math.min(5,hist.length)} scores">📈 ${hist.slice(-5).map(h=>h.pct).join("→")}%</span>`:""}
+      </div>
+    </div>
+    <div class="ebtns">
+      ${inProg?`<a class="btn ghost" href="#/exam/${id}">⏯ Resume (${progN}/${att.answers.length})</a>
+      <button class="btn" data-new="${id}">▶ Start New</button>`:
+      `<button class="btn" data-new="${id}">▶ Start Exam</button>`}
+      ${lastSv?`<a class="btn ghost" href="#/exam/${id}/review" title="Reopen your last results and review">📋 Last result (${lastSv.last.pct}%)</a>`:""}
+    </div>
+    <div class="settings-row">
+      <span class="slab">⚙️ Session</span>
+      <div class="seg">
+        <button class="seg-b ${l.mode==="tutor"?"on":""}" data-id="${id}" data-mode="tutor">📖 Tutor</button>
+        <button class="seg-b ${l.mode==="exam"?"on":""}" data-id="${id}" data-mode="exam">📝 Exam</button>
+      </div>
+      <label class="sw"><input type="checkbox" data-id="${id}" data-shuf="q" ${l.shuffleQ?"checked":""}> 🔀 Shuffle Questions</label>
+      <label class="sw"><input type="checkbox" data-id="${id}" data-shuf="o" ${l.shuffleO?"checked":""}> 🔀 Shuffle Choices</label>
+    </div>
+  </div>`;
+}
+function bindStartNew(){
+  app.querySelectorAll("[data-new]").forEach(btn=>btn.onclick=()=>{
+    const id=btn.dataset.new;const l=LAUNCH[id]||dfltLaunch();
+    const sv=getAtt(id);
+    if(sv&&sv.answers.some(a=>a!==null)&&btn.dataset.armed!=="1"){   /* first tap arms, second tap discards */
+      btn.dataset.armed="1";const old=btn.textContent;btn.textContent="⚠️ Tap again to discard progress";
+      setTimeout(()=>{btn.dataset.armed="";btn.textContent=old;},4000);return;
+    }
+    clearAtt(id);PA={id,mode:l.mode,shuffleQ:l.shuffleQ,shuffleO:l.shuffleO};
+    location.hash="#/exam/"+id;
+  });
+  app.querySelectorAll(".seg-b").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id;const l=LAUNCH[id]||(LAUNCH[id]=dfltLaunch());
+    l.mode=b.dataset.mode;
+    b.parentElement.querySelectorAll(".seg-b").forEach(x=>x.classList.toggle("on",x===b));
+  });
+  app.querySelectorAll("[data-shuf]").forEach(cb=>cb.onchange=()=>{
+    const id=cb.dataset.id;const l=LAUNCH[id]||(LAUNCH[id]=dfltLaunch());
+    if(cb.dataset.shuf==="q")l.shuffleQ=cb.checked;else l.shuffleO=cb.checked;
+  });
+}
+
+function renderSubject(k){
+  const s=SUBJECTS[k];if(!s){renderHome();return;}
+  const exs=Object.entries(EXAMS).filter(([,e])=>e.subject===k);
+  const real=exs.filter(([,e])=>!e.mixed);
+  const items=real.reduce((a,[,e])=>a+e.data.length,0);
+  const cats=Object.entries(CATEGORIES).filter(([,c])=>c.subject===k);
+  const uncat=exs.filter(([,e])=>!(e.category&&CATEGORIES[e.category]));
+  const records=real.map(([id])=>getBest(id)).filter(b=>b&&b.pct!=null);
+  const avgScore=records.length?Math.round(records.reduce((a,b)=>a+b.pct,0)/records.length):0;
+  const subjectMasteryPct=real.length>0?Math.round(records.reduce((a,b)=>a+b.pct,0)/real.length):0;
+  const catCards=cats.map(([id,c])=>{
+    const cex=exs.filter(([,e])=>e.category===id);
+    const n=cex.length,it=cex.reduce((a,[,e])=>a+e.data.length,0);
+    const hay=searchHay(s.name,c.title,c.desc,cex.map(([eid,e])=>[e.title,e.desc,(e.tags||[]).join(" "),eid]).flat().join(" "));
+    return `<a class="scard" href="#/s/${k}/${id}" data-search="${esc(hay)}">
+      <div class="sicon" style="background:${c.color||s.color}">${c.icon}</div>
+      <div style="flex:1"><b>${c.title}</b><div class="sd">${c.desc}</div>
+      <div class="smeta">${n?`<span class="chip ${c.cls||"sec-blue"}">${n} exam${n>1?"s":""}</span><span class="chip skipc">${it} items</span>`:`<span class="chip skipc">Empty</span>`}</div></div>
+    </a>`;
+  }).join("");
+  app.innerHTML=`
+  <div class="crumbs"><a href="#/">🏠 All Subjects</a> <span>›</span> <b>${s.name}</b>${themeBtnHTML("","margin-left:auto")}</div>
+  <div class="subjhead">
+    <div class="sicon" style="background:${s.color}">${s.icon}</div>
+    <div><h2>${s.name}</h2><div class="sd">${s.desc}</div>
+      ${exs.length?`<div class="smeta">
+        <span class="chip sec-blue">${real.length} exam${real.length>1?"s":""}</span>
+        <span class="chip skipc">${items} items total</span>
+        ${cats.length?`<span class="chip sec-violet">📁 ${cats.length} categor${cats.length>1?"ies":"y"}</span>`:""}
+      </div>`:""}
+      ${exs.length?`
+      <div style="margin-top:12px;max-width:320px">
+        <div class="s-mtrack"><div class="s-mfill" style="width:${subjectMasteryPct}%;background:${s.color}"></div></div>
+        <span class="s-mval">${records.length>0?`🏆 ${avgScore}% avg score · ${records.length}/${real.length} completed`:`⚪ 0% · 0/${real.length} completed`}</span>
+      </div>`:""}
+    </div>
+  </div>
+  <div class="search-area">
+    <input type="search" class="search-input" placeholder="🔍 Search exams in ${s.name}…" aria-label="Search exams in ${s.name}">
+    <div class="search-sec">${cats.length?`<h3 class="sect-h">📁 Categories</h3><div class="sgrid">${catCards}</div>`:""}</div>
+    <div class="search-sec">${uncat.length?`${cats.length?`<h3 class="sect-h">📄 Exams</h3>`:""}<div class="ecards">${uncat.map(([id,e])=>examCardHTML(id,e)).join("")}</div>`:""}</div>
+    ${exs.length?"":
+    `<div class="emptybox" style="margin-top:18px"><div class="big">📭</div><b>No exams here yet</b>
+      <p style="font-size:13.5px;margin-top:4px">When you build transes for this subject, add them to the <b>EXAMS</b> registry — see the <a href="#/guide">Guide</a>.</p>
+      <a class="btn ghost" style="margin-top:14px" href="#/">← Back to Subjects</a></div>`}
+    <div class="emptybox search-empty" hidden>🔍 No matching exams found in ${s.name} — try another keyword.</div>
+    <div class="qsearch" data-subject="${k}" hidden></div>
+  </div>`;
+  bindStartNew();
+  bindPageSearch();
+  syncThemeBtns();
+}
+
+/* ---------- CATEGORY PAGE ---------- */
+function renderCategory(k,catKey){
+  const s=SUBJECTS[k];const c=CATEGORIES[catKey];
+  if(!s){renderHome();return;}
+  if(!c||c.subject!==k){renderSubject(k);return;}
+  const exs=Object.entries(EXAMS).filter(([,e])=>e.subject===k&&e.category===catKey);
+  const items=exs.reduce((a,[,e])=>a+e.data.length,0);
+  const catRecords=exs.map(([id])=>getBest(id)).filter(b=>b&&b.pct!=null);
+  const catAvg=catRecords.length?Math.round(catRecords.reduce((a,b)=>a+b.pct,0)/catRecords.length):0;
+  const catMasteryPct=exs.length>0?Math.round(catRecords.reduce((a,b)=>a+b.pct,0)/exs.length):0;
+  app.innerHTML=`
+  <div class="crumbs"><a href="#/">🏠 All Subjects</a> <span>›</span> <a href="#/s/${k}">${s.name}</a> <span>›</span> <b>${c.title}</b>${themeBtnHTML("","margin-left:auto")}</div>
+  <div class="subjhead">
+    <div class="sicon" style="background:${c.color||s.color}">${c.icon}</div>
+    <div><h2>${c.title}</h2><div class="sd">${c.desc}</div>
+      ${exs.length?`<div class="smeta"><span class="chip ${c.cls||"sec-blue"}">${exs.length} exam${exs.length>1?"s":""}</span><span class="chip skipc">${items} items total</span></div>`:""}
+      ${exs.length?`
+      <div style="margin-top:12px;max-width:320px">
+        <div class="s-mtrack"><div class="s-mfill" style="width:${catMasteryPct}%;background:${c.color||s.color}"></div></div>
+        <span class="s-mval">${catRecords.length>0?`🏆 ${catAvg}% avg score · ${catRecords.length}/${exs.length} completed`:`⚪ 0% · 0/${exs.length} completed`}</span>
+      </div>`:""}
+    </div>
+  </div>
+  <div class="search-area">
+    <input type="search" class="search-input" placeholder="🔍 Search exams in ${c.title}…" aria-label="Search exams in ${c.title}">
+    ${exs.length?`<div class="search-sec"><h3 class="sect-h">📄 Exams</h3><div class="ecards">${exs.map(([id,e])=>examCardHTML(id,e)).join("")}</div></div>`:
+    `<div class="emptybox"><div class="big">📭</div><b>No exams in this category yet</b>
+      <p style="font-size:13.5px;margin-top:4px">Exams in the <b>${c.title}</b> folder will appear here.</p>
+      <a class="btn ghost" style="margin-top:14px" href="#/s/${k}">← Back to ${s.name}</a></div>`}
+    <div class="emptybox search-empty" hidden>🔍 No matching exams found in ${c.title} — try another keyword.</div>
+    <div class="qsearch" data-subject="${k}" hidden></div>
+  </div>`;
+  bindStartNew();
+  bindPageSearch();
+  syncThemeBtns();
+}
+
+/* ---------- EXAM (INSTANT FEEDBACK) ---------- */
+const isAnswered=idx=>E.answers[idx]!==null;
+const examBack=e=>{ /* back-link from an exam → its category (or plain subject) */
+  if(!e||!e.subject||!SUBJECTS[e.subject])return{href:"#/",label:"Home"};
+  const cat=e.category&&CATEGORIES[e.category]?CATEGORIES[e.category]:null;
+  return {href:cat?`#/s/${e.subject}/${e.category}`:`#/s/${e.subject}`,label:SUBJECTS[e.subject].name+(cat?` · ${cat.title}`:"")};
+};
+
+function optHTML(q,idx){
+  const a=E.answers[idx];
+  if(a===null){ /* unanswered → clickable + strikeable */
+    return q.o.map((o,i)=>`<button class="opt${isElim(idx,i)?` eliminated`:""}" data-i="${i}"><span class="ol">${letter(i)}</span><span class="ot">${esc(o)}</span><span class="opt-strike-btn" data-elim="${i}" role="button" title="Strike out this choice">⊘</span></button>`).join("");
+  }
+  if(E.mode==="exam"){ /* exam: mutable selection, no correct/wrong feedback, strikeable */
+    return q.o.map((o,i)=>`<button class="opt${i===a?" selected":""}${isElim(idx,i)?` eliminated`:""}" data-i="${i}"><span class="ol">${letter(i)}</span><span class="ot">${esc(o)}</span>${i===a?`<span class="om" style="color:var(--blue)">●</span>`:""}<span class="opt-strike-btn" data-elim="${i}" role="button" title="Strike out this choice">⊘</span></button>`).join("");
+  }
+  /* tutor: answered → LOCKED, show correct/wrong feedback */
+  return q.o.map((o,i)=>{
+    let cls="opt",mk="";
+    if(i===q.a){cls+=" correct";mk="✓";}
+    else if(i===a){cls+=" wrong";mk="✗";}
+    return `<div class="${cls}" style="cursor:default"><span class="ol">${letter(i)}</span><span class="ot">${esc(o)}</span>${mk?`<span class="om ${i===a&&i!==q.a?"omx":""}">${mk}</span>`:""}</div>`;
+  }).join("");
+}
+function explainHTML(q){ /* 💡 rationalization box (tutor review) */
+  const ok=E.answers[E.cur]===q.a;
+  return `<div class="explain" id="explainBox">
+    <div style="margin-bottom:6px">${ok?`<span class="chip lot">✓ Correct!</span>`:`<span class="chip wrongc">✗ Incorrect — correct answer: ${letter(q.a)}</span>`}</div>
+    ${imgHTML(q)}
+    <b>💡 Rationalization:</b> ${q.e}
+  </div>`;
+}
+
+function renderExam(){
+  const ex=EXAMS[E.id],n=E.items.length;
+  const back=examBack(ex);
+  if(n===0){ /* empty exam placeholder */
+    document.getElementById("topbar").hidden=true;
+    app.innerHTML=`
+    <div class="crumbs"><a href="${back.href}">← ${back.label}</a></div>
+    <div class="emptybox" style="margin-top:10px"><div class="big">📝</div>
+      <b>${ex.icon} ${ex.title}</b>
+      <p style="font-size:13.5px;margin-top:4px">No questions have been added to this exam yet.</p>
+      <a class="btn ghost" style="margin-top:14px" href="${back.href}">← Back to ${back.label}</a>
+    </div>`;
+    return;
+  }
+  document.getElementById("topbar").hidden=false;
+  const q=E.items[E.cur];
+  const answeredQ=E.answers[E.cur]!==null;
+  const a=E.answers.filter(x=>x!==null).length;
+  const flagged=E.flags[E.cur]===true;
+  document.getElementById("tbTitle").textContent=ex.icon+" "+ex.short;
+  app.innerHTML=`
+  <div class="crumbs"><a href="${back.href}">← ${back.label}</a></div>
+  <div class="qhead">
+    <div class="chips">
+      <span class="chip ${ex.cls||"sec-blue"}">${ex.icon} ${ex.short}</span>
+      <span class="chip ${E.mode==="exam"?"skipc":"lot"}">${E.mode==="exam"?"📝 Exam Mode":"📖 Tutor Mode"}</span>
+      <span class="chip ${q.t==="LOTS"?"lot":"hot"}">${q.t==="LOTS"?"🧠 LOTS":"🔥 HOTS"}</span>
+      ${answeredQ?(E.mode==="tutor"?`<span class="chip ${E.answers[E.cur]===q.a?"lot":"wrongc"}">${E.answers[E.cur]===q.a?"✓ Correct":"✗ Wrong"}</span>`:`<span class="chip sec-blue">✓ Answered</span>`):""}
+      ${flagged?`<span class="chip flag">🚩 Flagged</span>`:""}
+      ${E.shuffleO?`<span class="chip skipc" title="Option order is randomized for this session">🔀 Choices Shuffled</span>`:""}
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn-flag" id="btnReport" title="Copy this question to report a problem with it">🛠 Report</button>
+      <button class="btn-flag ${flagged?"on":""}" id="btnFlag">${flagged?"🚩 Marked":"🏳️ Mark"}</button>
+      <div class="qnum">Item ${E.cur+1} <span class="of">of ${n}</span></div>
+    </div>
+  </div>
+  <div class="qcard">
+    <p class="qtext">${esc(q.q)}</p>
+    <div class="opts" id="opts" role="group" aria-label="Answer choices">${optHTML(q,E.cur)}</div>
+    ${(E.mode==="tutor"&&answeredQ)?explainHTML(q):""}
+  </div>
+  <div class="qnav">
+    <button class="btn ghost" id="btnPrev" ${E.cur===0?"disabled":""}>← Previous</button>
+    <button class="btn ghost" id="btnNav">☰ Navigator <span class="mini">(${a}/${n})</span></button>
+    ${E.cur===n-1
+      ?`<button class="btn warn" id="btnSummary" ${E.mode==="tutor"&&!answeredQ?"disabled":""} title="${E.mode==="tutor"&&!answeredQ?"Answer this question to unlock the summary":""}">🏁 View Summary →</button>`
+      :`<button class="btn" id="btnNext">Next →</button>`}
+  </div>
+  <p class="kbd">⌨︎ 1–4 / A–D select (${E.mode==="tutor"?"answers lock immediately":"answers stay editable until summary"}) · ← → or N / P move · Enter / Space next · F flag · X strike-out mode · right-click / ⊘ strikes a choice</p>`;
+  app.querySelectorAll(".opt[data-i]").forEach(el=>{
+    el.onclick=()=>select(+el.dataset.i);
+    el.addEventListener("contextmenu",ev=>{ev.preventDefault();toggleElim(+el.dataset.i);});
+  });
+  app.querySelectorAll(".opt-strike-btn").forEach(sb=>sb.addEventListener("click",ev=>{ev.preventDefault();ev.stopPropagation();toggleElim(+sb.dataset.elim);}));
+  document.getElementById("btnFlag").onclick=toggleFlag;
+  document.getElementById("btnReport").onclick=()=>reportQuestion(E.cur);
+  const bp=document.getElementById("btnPrev");if(bp)bp.onclick=()=>{E.cur--;saveAtt();renderExam();window.scrollTo({top:0});};
+  const bn=document.getElementById("btnNext");if(bn)bn.onclick=()=>{E.cur++;saveAtt();renderExam();window.scrollTo({top:0});};
+  const bsm=document.getElementById("btnSummary");if(bsm)bsm.onclick=viewSummary;
+  document.getElementById("btnNav").onclick=openNav;
+  a11yOpts();
+  updateProgress();
+  syncThemeBtns();
+}
+function a11yOpts(){ /* screen-reader state for the choices */
+  app.querySelectorAll("#opts .opt").forEach((el,i)=>{
+    if(el.tagName==="BUTTON"){el.setAttribute("aria-pressed",el.classList.contains("selected")?"true":"false");}
+    else{
+      const t=(el.querySelector(".ot")||{}).textContent||"";
+      el.setAttribute("aria-label",letter(i)+": "+t+(el.classList.contains("correct")?" — correct answer":(el.classList.contains("wrong")?" — your answer, incorrect":"")));
+    }
+  });
+}
+function select(i){
+  if(E.mode==="tutor"&&isAnswered(E.cur))return;   /* tutor locks after answering */
+  E.answers[E.cur]=i;
+  const arr=E.elim[E.cur];
+  if(arr){const j=arr.indexOf(i);if(j>=0){arr.splice(j,1);if(!arr.length)delete E.elim[E.cur];}}
+  saveAtt();
+  renderExam();                                    /* re-render reveals feedback (tutor) / mutable selection (exam) */
+  if(E.mode==="tutor"){
+    const ex=document.getElementById("explainBox");
+    if(ex){
+      const tb=document.getElementById("topbar");
+      const topbarH=(tb&&tb.offsetHeight)||56;
+      const targetPos=ex.getBoundingClientRect().top+window.pageYOffset-(topbarH+16);
+      window.scrollTo({top:targetPos,behavior:(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth")});
+    }
+  }
+}
+function goRel(d){ /* move by d questions (used by keyboard + swipe) */
+  const n=E.cur+d;if(n<0||n>=E.items.length)return;
+  E.cur=n;saveAtt();renderExam();window.scrollTo({top:0});
+}
+function isElim(idx,i){const arr=E.elim[idx];return !!arr&&arr.indexOf(i)!==-1;}
+function toggleElim(i){
+  const arr=E.elim[E.cur]||[];
+  const j=arr.indexOf(i);
+  if(j>=0)arr.splice(j,1);else arr.push(i);
+  if(arr.length)E.elim[E.cur]=arr;else delete E.elim[E.cur];
+  saveAtt();renderExam();
+}
+function toggleFlag(){
+  E.flags[E.cur]=!E.flags[E.cur];saveAtt();renderExam();
+}
+
+function openNav(){
+  const n=E.items.length,g=document.getElementById("navGrid");
+  g.innerHTML=Array.from({length:n},(_,i)=>{
+    const cls=["navb",E.answers[i]!=null?"ans":"",i===E.cur?"cur":"",E.flags[i]?"flagged":""].filter(Boolean).join(" ");
+    return `<button class="${cls}" data-i="${i}">${i+1}</button>`;
+  }).join("");
+  const filters=document.getElementById("navFilters");
+  filters.style.display="flex";
+  filters.querySelectorAll("[data-nf]").forEach(b=>b.classList.toggle("on",b.dataset.nf==="all"));
+  navApplyFilter("all");
+  document.getElementById("navOverlay").hidden=false;
+}
+function navApplyFilter(f){
+  const btns=document.querySelectorAll("#navGrid .navb");
+  let visibleCount=0;
+  btns.forEach(b=>{
+    const i=+b.dataset.i;
+    let show=false;
+    if(f==="all")show=true;
+    else if(f==="flagged")show=E.flags[i]===true;
+    else if(f==="unanswered")show=E.answers[i]===null;
+    b.style.display=show?"":"none";
+    if(show)visibleCount++;
+  });
+  let emptyNotice=document.getElementById("navEmptyNotice");
+  if(!emptyNotice){
+    emptyNotice=document.createElement("div");
+    emptyNotice.id="navEmptyNotice";
+    emptyNotice.style.cssText="grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padding:20px 0;";
+    document.getElementById("navGrid").appendChild(emptyNotice);
+  }
+  emptyNotice.textContent=f==="flagged"?"No flagged items in this exam.":(f==="unanswered"?"All questions answered! 🎉":"");
+  emptyNotice.style.display=(visibleCount===0&&f!=="all")?"block":"none";
+}
+document.getElementById("navFilters").addEventListener("click",e=>{
+  const b=e.target.closest("[data-nf]");if(!b)return;
+  document.querySelectorAll("#navFilters [data-nf]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  navApplyFilter(b.dataset.nf);
+});
+document.getElementById("navClose").onclick=()=>document.getElementById("navOverlay").hidden=true;
+document.getElementById("navOverlay").addEventListener("click",e=>{
+  if(e.target.id==="navOverlay"){e.target.hidden=true;return;}
+  const b=e.target.closest(".navb");if(!b)return;
+  E.cur=+b.dataset.i;saveAtt();document.getElementById("navOverlay").hidden=true;renderExam();window.scrollTo({top:0});
+});
+
+/* feature-2 · reset-progress modal wiring (close / cancel / yes) */
+(function(){
+  const rO=document.getElementById("resetOverlay");if(!rO)return;
+  const hide=()=>{rO.hidden=true;};
+  const hook=(id,fn)=>{const b=document.getElementById(id);if(b)b.addEventListener("click",fn);};
+  hook("resetCloseBtn",hide);
+  hook("resetCancelBtn",hide);
+  hook("resetYesBtn",()=>resetAllProgress());
+})();
+
+/* ---------- SUMMARY & RESULTS ---------- */
+function viewSummary(){
+  const un=E.answers.filter(a=>a==null).length;
+  if(un>0){document.getElementById("unCount").textContent=un;document.getElementById("confirmOverlay").hidden=false;return;}
+  doSubmit();
+}
+document.getElementById("confirmCancel").onclick=()=>document.getElementById("confirmOverlay").hidden=true;
+document.getElementById("confirmYes").onclick=()=>{document.getElementById("confirmOverlay").hidden=true;doSubmit();};
+
+function doSubmit(){
+  stopTimer();
+  const data=E.items,n=data.length;
+  const correct=E.answers.reduce((s,a,i)=>s+(a===data[i].a?1:0),0);
+  E.last={correct,pct:Math.round(correct/n*100),time:E.elapsed};
+  if(!E.isMissedRun)E.best=setBest(E.id,E.last.pct,E.elapsed);   /* missed-run drills never touch master stats */
+  clearAtt(E.id);E.done=true;
+  recordResults();saveLast();setReviewURL(E.id,true);
+  renderResults();window.scrollTo({top:0});
+}
+function renderResults(){
+  document.getElementById("topbar").hidden=true;stopTimer();
+  const data=E.items,n=data.length,r=E.last;
+  const wrong=E.answers.reduce((s,a,i)=>s+((a!==null&&a!==data[i].a)?1:0),0);
+  const skipped=E.answers.filter(a=>a===null).length;
+  const miss=wrong+skipped;
+  const pct=r.pct,C=(2*Math.PI*52).toFixed(2);
+  const avgSecs=n>0?Math.round(r.time/n):0;
+  const paceStr=avgSecs>=60?`${Math.floor(avgSecs/60)}m ${avgSecs%60}s`:`${avgSecs}s`;
+  const topicName=(EXAMS[E.id]&&EXAMS[E.id].short)?EXAMS[E.id].short:"Topic";
+  let title,msg;
+  if(pct>=90){title=`🏆 ${topicName} Mastery!`;msg="Outstanding — you're board-ready. Teach a classmate to lock it in.";}
+  else if(pct>=75){title="💪 Solid Performance!";msg="Strong grasp of the transes. Review your misses below and you're set.";}
+  else if(pct>=60){title="📖 Decent Foundation";msg="You know the big ideas — revisit your weakest areas below.";}
+  else{title="🔁 Back to the Transes";msg="Rebuild the foundations, then retake. You've got this!";}
+  let lc=0,lt=0,hc=0,ht=0;
+  data.forEach((q,i)=>{if(q.t==="LOTS"){lt++;if(E.answers[i]===q.a)lc++;}else{ht++;if(E.answers[i]===q.a)hc++;}});
+  const bar=(l,c,t,hot)=>`<div class="brow"><span class="blabel">${l}</span><div class="btrack"><div class="bfill ${hot?"hot":""}" style="width:${Math.round(c/t*100)}%"></div></div><span class="bval">${c}/${t}</span></div>`;
+  E.filter="all";
+  app.innerHTML=`
+  <div class="crumbs"><a href="${examBack(EXAMS[E.id]).href}">← ${examBack(EXAMS[E.id]).label}</a>${themeBtnHTML("","margin-left:auto")}</div>
+  <div class="rescard">
+    <div class="ringwrap">
+      <svg viewBox="0 0 120 120" width="160" height="160">
+        <defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1266d4"/><stop offset="1" stop-color="#22b07d"/></linearGradient></defs>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--border)" stroke-width="12"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#gr)" stroke-width="12" stroke-linecap="round"
+          stroke-dasharray="${C}" stroke-dashoffset="${(C*(1-pct/100)).toFixed(2)}" transform="rotate(-90 60 60)"/>
+        <text x="60" y="58" text-anchor="middle" font-size="25" font-weight="800" fill="var(--ink)">${pct}%</text>
+        <text x="60" y="78" text-anchor="middle" font-size="11" fill="var(--muted)">${r.correct}/${n} correct</text>
+      </svg>
+    </div>
+    <h2>${title}</h2><p class="msg">${msg}</p>
+    ${E.best?`<div class="bestline">🏆 Personal best: <b>${E.best.pct}%</b> · ${E.best.attempts} attempt${E.best.attempts>1?"s":""} · ${EXAMS[E.id].short}${E.isMissedRun?` <span class="chip skipc">missed-run drill — not scored</span>`:""}</div>`:""}
+    ${(!E.isMissedRun&&getHist(E.id).length>=2)?`<div class="trendline">📈 ${sparkSVG(getHist(E.id).map(h=>h.pct))} Last ${Math.min(5,getHist(E.id).length)}: ${getHist(E.id).slice(-5).map(h=>h.pct+"%").join(" → ")}</div>`:""}
+    ${E.weakNote&&(E.weakNote.added||E.weakNote.cleared)?`<div class="weaknote">🎯 ${E.weakNote.added?E.weakNote.added+" question"+(E.weakNote.added===1?"":"s")+" added to your weak spots":""}${E.weakNote.added&&E.weakNote.cleared?" · ":""}${E.weakNote.cleared?E.weakNote.cleared+" mastered and removed":""} (${E.weakNote.total} total)</div>`:""}
+    <div class="statgrid">
+      <div class="stat ok"><b>${r.correct}</b><span>Correct</span></div>
+      <div class="stat bad"><b>${wrong}</b><span>Incorrect</span></div>
+      <div class="stat skip"><b>${skipped}</b><span>Unanswered</span></div>
+      <div class="stat"><b>${fmt(r.time)}</b><span>Total Time</span></div>
+      <div class="stat"><b>${paceStr}</b><span>Avg Pace / Item</span></div>
+    </div>
+    <div class="bars">
+      <h3>🧠🔥 By Question Type</h3>
+      ${bar("🧠 LOTS (recall)",lc,lt,false)}
+      ${bar("🔥 HOTS (application)",hc,ht,true)}
+    </div>
+    <div class="resbtns">
+      <button class="btn" id="btnRetake" style="font-size:16px;padding:13px 28px">↻ Retake Exam</button>
+      ${miss>0?`<button class="btn warn" id="btnRetakeMissed">↺ Retake Missed Only (${miss})</button>`:""}
+      ${miss>0?`<button class="btn ghost" id="btnAnki">🧠 Export misses to Anki</button>`:""}
+    </div>
+  </div>
+  <div id="reviewWrap"></div>`;
+  document.getElementById("btnRetake").onclick=()=>{
+    const st={mode:E.mode,shuffleQ:E.shuffleQ,shuffleO:E.shuffleO};
+    clearAtt(E.id);E=fresh(E.id,st);LAUNCH[E.id]=st;setReviewURL(E.id,false);
+    renderExam();startTimer();window.scrollTo({top:0});
+  };
+  const bm=document.getElementById("btnRetakeMissed");
+  if(bm)bm.onclick=()=>{
+    const keep=[];E.answers.forEach((a,i)=>{if(a===null||a!==E.items[i].a)keep.push(i);});
+    const items=keep.map(i=>E.items[i]);
+    clearAtt(E.id);setReviewURL(E.id,false);
+    E={...E,isMissedRun:true,items,cur:0,answers:new Array(items.length).fill(null),flags:new Array(items.length).fill(false),elim:{},elapsed:0,tid:null,done:false,filter:"all",last:null};
+    renderExam();if(E.items.length>0)startTimer();window.scrollTo({top:0});
+  };
+  const ba=document.getElementById("btnAnki");
+  if(ba)ba.onclick=()=>exportAnki(E.items.map((q,i)=>({q,ex:EXAMS[q._r?q._r[0]:E.id]||EXAMS[E.id],miss:E.answers[i]===null||E.answers[i]!==q.a})).filter(x=>x.miss),"anki-"+E.id+"-misses");
+  renderReview();
+  syncThemeBtns();
+}
+function reviewCard(i){
+  const q=E.items[i],a=E.answers[i];
+  const st=a==null?`<span class="chip skipc">Unanswered</span>`:(a===q.a?`<span class="chip lot">Correct ✓</span>`:`<span class="chip wrongc">Incorrect ✗</span>`);
+  return `<div class="qcard rev">
+    <div class="chips"><span class="chip ${EXAMS[E.id].cls||"sec-blue"}">Item ${i+1} · ${EXAMS[E.id].short}</span>
+    <span class="chip ${q.t==="LOTS"?"lot":"hot"}">${q.t==="LOTS"?"🧠 LOTS":"🔥 HOTS"}</span>${st}${E.flags[i]?`<span class="chip flag">🚩 Flagged</span>`:""}</div>
+    <p class="qtext">${esc(q.q)}</p>
+    <div class="opts">${q.o.map((o,oi)=>{
+      let cls="opt",mk="";
+      if(oi===q.a){cls+=" correct";mk="✓";}else if(oi===a){cls+=" wrong";mk="✗";}
+      return `<div class="${cls}" style="cursor:default"><span class="ol">${letter(oi)}</span><span class="ot">${esc(o)}</span>${mk?`<span class="om ${oi===a&&oi!==q.a?"omx":""}">${mk}</span>`:""}</div>`;}).join("")}
+    </div>
+    <div class="explain">${imgHTML(q)}<b>💡 Rationalization:</b> ${q.e}</div>
+    <div style="margin-top:10px;text-align:right"><button class="btn-flag" data-report="${i}" title="Copy this question so you can report a problem with it">🛠 Report this question</button></div>
+  </div>`;
+}
+function renderReview(){
+  const wrap=document.getElementById("reviewWrap");if(!wrap)return;
+  const data=E.items,f=E.filter;
+  const idxs=data.map((q,i)=>i).filter(i=>{const a=E.answers[i];
+    if(f==="wrong")return a!=null&&a!==data[i].a;
+    if(f==="skipped")return a==null;
+    if(f==="flagged")return E.flags[i]===true;
+    return true;});
+  const fcnt=E.flags.filter(Boolean).length;
+  wrap.innerHTML=`
+  <div class="filters"><span class="ftitle">🔍 Review:</span>
+    ${[["all","All "+data.length],["wrong","Incorrect only"],["skipped","Unanswered only"],["flagged","🚩 Flagged"+(fcnt?` (${fcnt})`:"")]].map(([k,l])=>
+    `<button class="fbtn ${E.filter===k?"on":""}" data-f="${k}">${l}</button>`).join("")}</div>
+  ${idxs.length===0?`<p class="empty">🎉 Nothing here — great job!</p>`:idxs.map(i=>reviewCard(i)).join("")}`;
+  wrap.querySelectorAll(".fbtn").forEach(b=>b.onclick=()=>{E.filter=b.dataset.f;renderReview();});
+  wrap.querySelectorAll("[data-report]").forEach(b=>b.onclick=()=>reportQuestion(+b.dataset.report));
+}
+
+/* ---------- KEYBOARD ---------- */
+document.addEventListener("keydown",e=>{
+  const lb=document.getElementById("imgLightbox");
+  if(lb&&!lb.hidden&&e.key==="Escape"){lb.hidden=true;return;}
+  if(e.ctrlKey||e.metaKey||e.altKey)return;                    /* leave Ctrl/Cmd+C, +F, +A, +D … to the browser */
+  const tg=e.target;if(tg&&(/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)||tg.isContentEditable))return;
+  if(document.getElementById("topbar").hidden||!E.id||E.done)return;
+  const nav=document.getElementById("navOverlay"),cnf=document.getElementById("confirmOverlay");
+  const cb=document.getElementById("customBlockOverlay"),rs=document.getElementById("resetOverlay");
+  if(!nav.hidden){if(e.key==="Escape")nav.hidden=true;return;}
+  if(!cnf.hidden||!cb.hidden||!rs.hidden){if(e.key==="Escape"){cnf.hidden=true;cb.hidden=true;rs.hidden=true;}return;}
+  const q=E.items[E.cur];
+  const onCtl=tg&&/^(BUTTON|A|SUMMARY)$/.test(tg.tagName);
+  if((e.key==="Enter"||e.key===" ")&&!onCtl){        /* next question (tutor mode: only after answering, so it can't skip by accident) */
+    e.preventDefault();if(E.mode==="exam"||E.answers[E.cur]!==null)goRel(1);return;
+  }
+  if(e.key==="n"||e.key==="N"){goRel(1);return;}
+  if(e.key==="p"||e.key==="P"){goRel(-1);return;}
+  if(e.key==="f"||e.key==="F"){e.preventDefault();flagToggle();return;}
+  if(e.key==="x"||e.key==="X"){e.preventDefault();toggleElimMode();return;}
+  if(e.key==="Escape"){if(E.elimMode){toggleElimMode();return;}}
+  let i=-1;
+  if(e.key>="1"&&e.key<="9")i=+e.key-1;
+  else if(/^[a-dA-D]$/.test(e.key))i=e.key.toLowerCase().charCodeAt(0)-97;
+  if(i>=0&&i<q.o.length){e.preventDefault();if(E.elimMode){toggleElim(i);}else{select(i);}return;}
+  if(e.key==="ArrowRight"&&E.cur<E.items.length-1){E.cur++;saveAtt();renderExam();window.scrollTo({top:0});}
+  else if(e.key==="ArrowLeft"&&E.cur>0){E.cur--;saveAtt();renderExam();window.scrollTo({top:0});}
+});
+
+/* ---------- TOUCH: swipe left/right to change question ---------- */
+(function(){
+  let x0=null,y0=0,t0=0,blocked=false;
+  const live=()=>E.id&&!E.done&&!document.getElementById("topbar").hidden;
+  app.addEventListener("touchstart",e=>{
+    if(!live()||e.touches.length!==1){x0=null;return;}
+    const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now();
+    blocked=!!e.target.closest("table,pre,.explain-img-wrap,input,textarea");
+  },{passive:true});
+  app.addEventListener("touchend",e=>{
+    if(x0===null||blocked||!live())return;
+    const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
+    if(Date.now()-t0>700||Math.abs(dx)<80||Math.abs(dy)>Math.abs(dx)*0.5)return;
+    try{if(String(window.getSelection()))return;}catch(err){}
+    if(dx<0){if(E.mode==="tutor"&&E.answers[E.cur]===null)return;goRel(1);}else goRel(-1);
+  },{passive:true});
+})();
+
+/* ---------- NATIVE GAMEPAD / CONTROLLER SUPPORT ---------- */
+let lastPadButtons = {};
+let lastPadAxes = {};
+let padToastShown = false;
+
+function getActiveGamepad() {
+  if (!navigator.getGamepads) return null;
+  const pads = Array.from(navigator.getGamepads());
+  return pads.find(p => p && p.connected && p.buttons && p.buttons.length > 0) || null;
+}
+
+let padLoop = false;
+const padNext = () => { if (getActiveGamepad()) requestAnimationFrame(pollGamepad); else padLoop = false; };
+const startPadLoop = () => { if (!padLoop) { padLoop = true; requestAnimationFrame(pollGamepad); } };
+
+function pollGamepad() {
+  if (!E.id || E.done || document.getElementById("topbar").hidden) {
+    padNext();
+    return;
+  }
+
+  const pad = getActiveGamepad();
+  if (pad) {
+    const isPressed = idx => !!(pad.buttons[idx] && (pad.buttons[idx].pressed || pad.buttons[idx].value > 0.5));
+    const justPressed = idx => isPressed(idx) && !lastPadButtons[idx];
+
+    const axisFlick = (axisIdx, dir) => {
+      const val = pad.axes[axisIdx] || 0;
+      const key = `axis_${axisIdx}_${dir > 0 ? "pos" : "neg"}`;
+      const active = dir > 0 ? val > 0.55 : val < -0.55;
+      const triggered = active && !lastPadAxes[key];
+      lastPadAxes[key] = active;
+      return triggered;
+    };
+
+    const isStandard = pad.mapping === "standard";
+
+    const navNext = isStandard
+      ? (justPressed(5) || justPressed(15) || axisFlick(0, 1))
+      : (justPressed(7) || justPressed(16) || axisFlick(0, 1));
+
+    const navPrev = isStandard
+      ? (justPressed(4) || justPressed(14) || axisFlick(0, -1))
+      : (justPressed(6) || justPressed(14) || axisFlick(0, -1));
+
+    const q = E.items[E.cur];
+    const navOvl = document.getElementById("navOverlay");
+    const isNavOpen = navOvl && !navOvl.hidden;
+
+    if (isStandard ? justPressed(9) : (justPressed(11) || justPressed(9))) {
+      if (isNavOpen) navOvl.hidden = true;
+      else openNav();
+    }
+
+    if (isNavOpen) {
+      if (justPressed(0) || justPressed(1)) navOvl.hidden = true;
+    } else {
+      if (justPressed(0) && q?.o?.[0] !== undefined) { E.elimMode ? toggleElim(0) : select(0); }
+      if (justPressed(1) && q?.o?.[1] !== undefined) { E.elimMode ? toggleElim(1) : select(1); }
+      const xPressed = isStandard ? justPressed(2) : (justPressed(3) || justPressed(2));
+      if (xPressed && q?.o?.[2] !== undefined) { E.elimMode ? toggleElim(2) : select(2); }
+      const yPressed = isStandard ? justPressed(3) : justPressed(4);
+      if (yPressed && q?.o?.[3] !== undefined) { E.elimMode ? toggleElim(3) : select(3); }
+
+      if (navNext && E.cur < E.items.length - 1) { E.cur++; saveAtt(); renderExam(); window.scrollTo({ top: 0 }); }
+      if (navPrev && E.cur > 0) { E.cur--; saveAtt(); renderExam(); window.scrollTo({ top: 0 }); }
+
+      const flagPressed = isStandard ? (justPressed(8) || justPressed(11)) : (justPressed(10) || justPressed(12));
+      if (flagPressed) flagToggle();
+
+      const triggerPressed = isStandard ? (justPressed(6) || justPressed(7)) : (justPressed(8) || justPressed(9));
+      if (triggerPressed) toggleElimMode();
+
+      const scrollY = Math.abs(pad.axes[3]) > 0.25 ? pad.axes[3] : (Math.abs(pad.axes[1]) > 0.25 ? pad.axes[1] : 0);
+      if (scrollY !== 0) window.scrollBy({ top: scrollY * 16, behavior: "auto" });
+    }
+
+    pad.buttons.forEach((b, idx) => { lastPadButtons[idx] = b.pressed || b.value > 0.5; });
+  }
+  padNext();
+}
+
+window.addEventListener("gamepadconnected", e => {
+  startPadLoop();
+  if (!padToastShown) {
+    showToast(`🎮 Controller connected: ${e.gamepad.id.slice(0, 20)}`);
+    padToastShown = true;
+  }
+});
+if (getActiveGamepad()) startPadLoop();
+const themeBtn=document.getElementById("themeBtn");
+if(themeBtn)themeBtn.addEventListener("click",toggleTheme);
+syncThemeBtns();
+try{
+  const mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");
+  if(mq&&mq.addEventListener)mq.addEventListener("change",e=>{
+    let saved=null;try{saved=localStorage.getItem(THEME_KEY)}catch(err){}
+    if(saved!=="dark"&&saved!=="light"){setTheme(e.matches?"dark":"light");syncThemeBtns();}
+  });
+}catch(e){}
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&E.id&&!E.done)saveAtt();});  /* mobile may kill a hidden tab */
+window.addEventListener("pagehide",()=>{if(E.id&&!E.done)saveAtt();});
+document.querySelectorAll(".overlay .modal").forEach(m=>{
+  m.setAttribute("role","dialog");m.setAttribute("aria-modal","true");
+  const h=m.querySelector("h3");if(h)m.setAttribute("aria-label",h.textContent.replace(/[^\w\s&-]/g,"").trim());
+});
+/* offline support: only works over https (or localhost) */
+if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1")){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").then(()=>navigator.serviceWorker.ready).then(reg=>{
+      if(reg.active)reg.active.postMessage({cache:[...document.scripts].map(x=>x.src).filter(Boolean)});   /* make sure the versioned data files are cached on first visit */
+    }).catch(()=>{});
+  });
+}
+if(!location.hash)location.hash="#/";
+route();
+</script>
+</body>
+</html>
